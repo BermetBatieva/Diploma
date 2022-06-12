@@ -1,0 +1,45 @@
+package com.example.tametable.entity;
+
+import com.example.tametable.enums.WeekType;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import javax.persistence.*;
+
+@Entity(name = "lessons")
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@Builder
+public class Lesson {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "discipline_id", referencedColumnName = "id")
+    Discipline discipline;
+
+    @ManyToOne
+    @JoinColumn(name = "schedule_id", referencedColumnName = "id")
+    Schedule schedule;
+
+    @ManyToOne
+    @JoinColumn(name = "week_day_id", referencedColumnName = "id")
+    WeekDay weekDay;
+
+    @ManyToOne
+    @JoinColumn(name = "teacher_user_id", referencedColumnName = "id")
+    User user;
+
+    @ManyToOne
+    @JoinColumn(name = "time_id", referencedColumnName = "id")
+    TimeLesson timeLesson;
+
+    Boolean isLection;
+
+    @Enumerated
+    WeekType weekType;
+}

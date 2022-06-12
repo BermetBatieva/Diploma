@@ -37,4 +37,6 @@ public interface UserService {
     void resetPassword(ResetPasswordUserDTO userDTO);
 
     Optional<User> findUserByVerifyUserToken(String token);
+
+    User getUser();
 }

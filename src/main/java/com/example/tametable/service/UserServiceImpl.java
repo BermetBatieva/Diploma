@@ -8,7 +8,11 @@ import com.example.tametable.entity.User;
 import com.example.tametable.repository.FacultyRepository;
 import com.example.tametable.repository.GroupRepository;
 import com.example.tametable.repository.UserRepository;
+import com.example.tametable.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +22,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final GroupRepository groupRepository;
@@ -111,6 +116,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findUserByVerifyUserToken(String token) {
         return userRepository.findByVerifyUserToken(token);
+    }
+
+    @Override
+    public User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return ((UserPrincipal) authentication.getPrincipal()).getUser();
     }
 
     @Override
