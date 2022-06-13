@@ -1,5 +1,6 @@
 package com.example.tametable.entity;
 
+import com.example.tametable.enums.Status;
 import com.example.tametable.enums.WeekType;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -39,6 +40,9 @@ public class Lesson {
 
     Boolean isLection;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     WeekType weekType;
+
+    @Enumerated(EnumType.STRING)
+    Status status;
 }
