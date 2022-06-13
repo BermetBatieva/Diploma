@@ -8,7 +8,6 @@ import lombok.Data;
 public class LessonDTO {
     private Long id;
     private Discipline discipline;
-    private Schedule schedule;
     private WeekDay weekDay;
     private User user;
     private TimeLesson timeLesson;

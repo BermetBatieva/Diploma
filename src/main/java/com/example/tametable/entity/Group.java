@@ -16,7 +16,7 @@ public class Group {
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "faculty_id", referencedColumnName = "id")
     private Faculty faculty;
 

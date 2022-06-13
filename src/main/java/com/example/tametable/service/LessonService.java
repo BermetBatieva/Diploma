@@ -1,30 +1,41 @@
 package com.example.tametable.service;
 
+import com.example.tametable.DTO.LessonAddDto;
 import com.example.tametable.DTO.LessonDTO;
 import com.example.tametable.entity.Lesson;
+import com.example.tametable.entity.User;
 import com.example.tametable.exception.EntityNotFoundException;
-import com.example.tametable.repository.DisciplineRepository;
-import com.example.tametable.repository.LessonRepo;
+import com.example.tametable.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class LessonService {
+    @Autowired
+    private UserServiceImpl userService;
 
-    private final LessonRepo lessonRepo;
+    @Autowired
+    private TimeLessonRepo timeLessonRepo;
 
-    private final DisciplineRepository disciplineRepository;
+    @Autowired
+    private GroupRepository groupRepository;
 
-    public void create(Lesson lesson) {
-        lessonRepo.save(lesson);
-    }
+    @Autowired
+    private DisciplineRepository disciplineRepository;
+
+    @Autowired
+    private WeekDayRepository weekDayRepository;
+
+    @Autowired
+    private LessonRepo lessonRepo;
+
 
     public Lesson update(LessonDTO lessonDTO, Long id) {
         Lesson lesson = lessonRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Could not found staff: ", id));
         lesson.setDiscipline(lessonDTO.getDiscipline());
-        lesson.setSchedule(lessonDTO.getSchedule());
         lesson.setWeekDay(lessonDTO.getWeekDay());
         lesson.setUser(lessonDTO.getUser());
         lesson.setTimeLesson(lessonDTO.getTimeLesson());
@@ -40,4 +51,21 @@ public class LessonService {
         lessonRepo.deleteById(id);
         return id;
     }
+
+
+    public Lesson createLesson(LessonAddDto lessonAdd){
+        Lesson lesson = new Lesson();
+        User user = userService.getUser();
+        lesson.setUser(user);
+        lesson.setTimeLesson(timeLessonRepo.findById(lessonAdd.getTimeLessonId()).orElse(null));
+        lesson.setGroup(groupRepository.findById(lessonAdd.getGroupId()).orElse(null));
+        lesson.setIsLection(lessonAdd.getIsLecture());
+        lesson.setDiscipline(disciplineRepository.findById(lessonAdd.getDisciplineId()).orElse(null));
+        lesson.setWeekDay(weekDayRepository.findById(lessonAdd.getWeekId()).orElse(null));
+        lesson.setWeekType(lessonAdd.getWeekType());
+        return lessonRepo.save(lesson);
+
+    }
+
+
 }

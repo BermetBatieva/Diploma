@@ -23,8 +23,7 @@ public class Lesson {
     Discipline discipline;
 
     @ManyToOne
-    @JoinColumn(name = "schedule_id", referencedColumnName = "id")
-    Schedule schedule;
+    Group group;
 
     @ManyToOne
     @JoinColumn(name = "week_day_id", referencedColumnName = "id")
