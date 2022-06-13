@@ -53,19 +53,26 @@ public class LessonService {
     }
 
 
-    public Lesson createLesson(LessonAddDto lessonAdd){
-        Lesson lesson = new Lesson();
+    public void createLesson(LessonAddDto lessonAdd){
         User user = userService.getUser();
-        lesson.setUser(user);
-        lesson.setTimeLesson(timeLessonRepo.findById(lessonAdd.getTimeLessonId()).orElse(null));
-        lesson.setGroup(groupRepository.findById(lessonAdd.getGroupId()).orElse(null));
-        lesson.setIsLection(lessonAdd.getIsLecture());
-        lesson.setDiscipline(disciplineRepository.findById(lessonAdd.getDisciplineId()).orElse(null));
-        lesson.setWeekDay(weekDayRepository.findById(lessonAdd.getWeekId()).orElse(null));
-        lesson.setWeekType(lessonAdd.getWeekType());
-        return lessonRepo.save(lesson);
+        if(!lessonRepo.existsByUserAndWeekDay_IdAndTimeLesson_IdAndIsLection(
+                user,lessonAdd.getWeekId(),lessonAdd.getTimeLessonId(),false)) {
+            if(!lessonRepo.existsByGroup_IdAndTimeLesson_IdAndWeekDay_Id(lessonAdd.getGroupId(),lessonAdd.getTimeLessonId(),lessonAdd.getWeekId())) {
+                Lesson lesson = new Lesson();
+                lesson.setUser(user);
+                lesson.setTimeLesson(timeLessonRepo.findById(lessonAdd.getTimeLessonId()).orElse(null));
+                lesson.setGroup(groupRepository.findById(lessonAdd.getGroupId()).orElse(null));
 
+                lesson.setIsLection(lessonAdd.getIsLecture());
+                lesson.setDiscipline(disciplineRepository.findById(lessonAdd.getDisciplineId()).orElse(null));
+                lesson.setWeekDay(weekDayRepository.findById(lessonAdd.getWeekId()).orElse(null));
+                lesson.setWeekType(lessonAdd.getWeekType());
+                lessonRepo.save(lesson);
+            }
+        }
     }
+
+
 
 
 }
