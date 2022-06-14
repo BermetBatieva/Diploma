@@ -21,24 +21,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <a class="navbar-brand" href="/schedule/">Расписание</a>
                 <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li th:if="${user.getRole().name().equals('ADMIN')}" class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/user/students">Студенты</a>
-                    </li>
-                    <li th:if="${user.getRole().name().equals('ADMIN')}" class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/user/teachers">Учителя</a>
-                    </li>
-                    <li th:if="${user.getRole().name().equals('ADMIN')}" class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/group/create">Добавить группу</a>
-                    </li>
-                    <li th:if="${user.getRole().name().equals('ADMIN')}" class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/group">Группы</a>
-                    </li>
-                    <li th:if="${user.getRole().name().equals('ADMIN')}" class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/discipline/create">Создать предмет</a>
-                    </li>
-                    <li th:if="${user.getRole().name().equals('ADMIN')}" class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/discipline">Предметы</a>
-                    </li>
+
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item" th:text="${user.getUsername()}" style="line-height: 38px"></li>
@@ -49,71 +32,47 @@
     </div>
 </nav>
 <div class="container">
-    <form id="lesson">
+    <form th:action="@{/teacher/lesson/create}" method="post">
         <div class="mb-3">
-            <label for="weekDay" class="form-label">Выберите день недели</label>
-            <select class="form-select" id="weekDay" name="weekDay" required>
-                <option th:each="weekDay : ${weekDays}"
-                        th:value="${weekDay.getWeekDay()}" th:text="${weekDay.getName()}">
+            <label for="discipline" class="form-label">Выберите дисциплину</label>
+            <select class="form-select" id="discipline" name="disciplineId" required>
+                <option th:each="discipline : ${disciplines}"
+                        th:value="${discipline.getId()}" th:text="${discipline.getName()}">
                 </option>
             </select>
         </div>
         <div class="mb-3">
-            <label for="exerciseTime" class="form-label">Выберите время</label>
-            <select class="form-select" id="exerciseTime" name="exerciseTime" required>
+            <label for="week" class="form-label">Выберите день недели</label>
+            <select class="form-select" id="week" name="weekId" required>
+                <option th:each="weekDay : ${weekDays}"
+                        th:value="${weekDay.getId()}" th:text="${weekDay.getName()}">
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="timeLesson" class="form-label">Выберите время</label>
+            <select class="form-select" id="timeLesson" name="timeLessonId" required>
                 <option th:each="exerciseTime : ${exercisesTime}"
                         th:value="${exerciseTime.getId()}" th:text="${exerciseTime.getTime()}">
                 </option>
             </select>
         </div>
         <div class="mb-3">
+            <input class="form-check-input" type="checkbox" name="isLecture" id="isLecture">
+            <label for="isLecture" class="form-label">Лекция</label>
+        </div>
+        <div class="mb-3">
+            <label for="week" class="form-label">Выберите знаметель или числитель</label>
+            <select class="form-select" id="week" name="weekType">
+                <option th:each="weekType : ${weekTypes}"
+                        th:value="${weekType}" th:text="${weekType.getTypeRus()}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="group" class="form-label">Выберите группу</label>
-            <select class="form-select" id="group" name="group">
+            <select class="form-select" id="group" name="groupId">
                 <option th:each="group : ${groups}"
                         th:value="${group.getId()}" th:text="${group.getName()}">
-                </option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="week" class="form-label">Выберите знаметель или числитель</label>
-            <select class="form-select" id="week" name="week">
-                <option value="1">Знаменатель</option>
-                <option value="2">Числитель</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="week" class="form-label">Выберите знаметель или числитель</label>
-            <select class="form-select" id="week" name="week">
-                <option value="1">Знаменатель</option>
-                <option value="2">Числитель</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="username" class="form-label">Введите логин</label>
-            <input type="text" class="form-control" id="username" name="username" required>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Введите email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Введите пароль</label>
-            <input type="password" min="6" class="form-control" id="password" name="password" required>
-        </div>
-        <div class="mb-3">
-            <label for="faculty" class="form-label">Выберите факультет</label>
-            <select class="form-select" id="faculty" name="facultyId" required>
-                <option th:each="faculty : ${faculties}"
-                        th:value="${faculty.getId()}" th:text="${faculty.getName()}">
-                </option>
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label for="role" class="form-label">Выберите роль</label>
-            <select class="form-select" id="role" name="role">
-                <option th:each="role : ${roles}"
-                        th:value="${role}" th:text="${role}">
                 </option>
             </select>
         </div>
@@ -127,3 +86,15 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
+
+<!--private Integer disciplineId;-->
+
+<!--private Integer weekId;-->
+
+<!--private Long timeLessonId;-->
+
+<!--private Boolean isLecture;-->
+
+<!--private WeekType weekType;-->
+
+<!--private Integer groupId;-->
