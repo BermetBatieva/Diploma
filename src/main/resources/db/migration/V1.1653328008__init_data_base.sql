@@ -47,12 +47,12 @@ CREATE TABLE IF NOT EXISTS public.week_days
     CONSTRAINT week_days_pkey PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS public.exercise_time
+CREATE TABLE IF NOT EXISTS public.times
 (
-    id       serial            NOT NULL,
-    exercise character varying NOT NULL,
-    time     character varying NOT NULL,
-    CONSTRAINT exercise_time_pkey PRIMARY KEY (id)
+    id            bigserial         NOT NULL,
+    time          character varying NOT NULL,
+    number_lesson integer           NOT NULL,
+    CONSTRAINT times_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS public.disciplines
