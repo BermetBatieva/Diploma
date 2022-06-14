@@ -3,10 +3,7 @@ package com.example.tametable.entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "times")
 @AllArgsConstructor
@@ -22,5 +19,6 @@ public class TimeLesson {
 
     String time;
 
+    @Column(name = "number_lesson")
     Integer numberLesson;
 }
