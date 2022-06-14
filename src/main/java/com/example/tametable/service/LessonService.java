@@ -2,6 +2,7 @@ package com.example.tametable.service;
 
 import com.example.tametable.DTO.LessonAddDto;
 import com.example.tametable.DTO.LessonDTO;
+import com.example.tametable.DTO.ListLessonGroup;
 import com.example.tametable.DTO.ListLessonTeacher;
 import com.example.tametable.entity.Lesson;
 import com.example.tametable.entity.Role;
@@ -104,6 +105,26 @@ public class LessonService {
             listLessonTeacherModel.setWeekType(lesson.getWeekType());
             listLessonTeacherModel.setIsLektion(lesson.getIsLection());
             listModel.add(listLessonTeacherModel);
+        }
+        return listModel;
+    }
+
+    public List<ListLessonGroup> getAllLessonsByGroupId(Integer groupId){
+        List<ListLessonGroup> listModel = new ArrayList<>();
+        List<Lesson> lessonList =  lessonRepo.findByStatusAndGroup_Id(Status.ACTIVE,groupId);
+
+        for (Lesson lesson : lessonList){
+
+            ListLessonGroup model = new ListLessonGroup();
+
+            model.setTimeLesson(lesson.getTimeLesson().getTime());
+            model.setDiscipline(lesson.getDiscipline().getName());
+            model.setGroup(lesson.getGroup().getName());
+            model.setWeekDay(lesson.getWeekDay().getName());
+            model.setWeekType(lesson.getWeekType());
+            model.setIsLektion(lesson.getIsLection());
+            model.setTeacher(lesson.getUser().getFirstName() +" "+ lesson.getUser().getLastName());
+            listModel.add(model);
         }
         return listModel;
     }
