@@ -78,6 +78,7 @@ public class LessonService {
             if(!lessonRepo.existsByGroup_IdAndTimeLesson_IdAndWeekDay_IdAndStatus(lessonAdd.getGroupId(),lessonAdd.getTimeLessonId(),lessonAdd.getWeekId(),Status.ACTIVE)) {
                 Lesson lesson = new Lesson();
                 lesson.setUser(user);
+                lesson.setStatus(Status.ACTIVE);
                 lesson.setTimeLesson(timeLessonRepo.findById(lessonAdd.getTimeLessonId()).orElse(null));
                 lesson.setGroup(groupRepository.findById(lessonAdd.getGroupId()).orElse(null));
                 lesson.setIsLection(lessonAdd.getIsLecture());
@@ -106,4 +107,8 @@ public class LessonService {
         }
         return listModel;
     }
+
+
+
+
 }
