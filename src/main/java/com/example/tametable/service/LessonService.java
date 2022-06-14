@@ -6,6 +6,7 @@ import com.example.tametable.DTO.ListLessonGroup;
 import com.example.tametable.DTO.ListLessonTeacher;
 import com.example.tametable.entity.Lesson;
 import com.example.tametable.entity.Role;
+import com.example.tametable.entity.TimeLesson;
 import com.example.tametable.entity.User;
 import com.example.tametable.enums.Status;
 import com.example.tametable.exception.EntityNotFoundException;
@@ -15,7 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -117,6 +121,7 @@ public class LessonService {
 
             ListLessonGroup model = new ListLessonGroup();
 
+            model.setNumTimeLesson(lesson.getTimeLesson().getNumberLesson());
             model.setTimeLesson(lesson.getTimeLesson().getTime());
             model.setDiscipline(lesson.getDiscipline().getName());
             model.setGroup(lesson.getGroup().getName());
@@ -126,10 +131,10 @@ public class LessonService {
             model.setTeacher(lesson.getUser().getFirstName() +" "+ lesson.getUser().getLastName());
             listModel.add(model);
         }
+        listModel.sort(Comparator.comparingInt(ListLessonGroup::getNumTimeLesson));
+        System.out.println(listModel);
         return listModel;
+
     }
-
-
-
 
 }
