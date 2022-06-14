@@ -1,7 +1,9 @@
 package com.example.tametable.controller.restController;
 
+import com.example.tametable.DTO.ListLessonGroup;
 import com.example.tametable.entity.Group;
 import com.example.tametable.service.GroupService;
+import com.example.tametable.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import java.util.List;
 public class GroupRestController {
     private final GroupService groupService;
 
+    private final LessonService lessonService;
+
     @GetMapping("/groups")
     public ResponseEntity<List<Group>> getAllGroups() {
         return new ResponseEntity<>(groupService.findAllGroups(), HttpStatus.OK);
@@ -24,5 +28,10 @@ public class GroupRestController {
     public ResponseEntity<Void> deleteGroup(@PathVariable int id) {
         groupService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/all-lesson-by-group/{groupId}")
+    public List<ListLessonGroup> getLessonsByGroupId(@PathVariable Integer groupId){
+        return lessonService.getAllLessonsByGroupId(groupId);
     }
 }
