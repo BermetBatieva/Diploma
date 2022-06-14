@@ -52,8 +52,8 @@
         <div class="mb-3">
             <label for="timeLesson" class="form-label">Выберите время</label>
             <select class="form-select" id="timeLesson" name="timeLessonId" required>
-                <option th:each="exerciseTime : ${exercisesTime}"
-                        th:value="${exerciseTime.getId()}" th:text="${exerciseTime.getTime()}">
+                <option th:each="timeLesson : ${timeLessons}"
+                        th:value="${timeLesson.getId()}" th:text="${timeLesson.getTime()}">
                 </option>
             </select>
         </div>
@@ -86,15 +86,3 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
-
-<!--private Integer disciplineId;-->
-
-<!--private Integer weekId;-->
-
-<!--private Long timeLessonId;-->
-
-<!--private Boolean isLecture;-->
-
-<!--private WeekType weekType;-->
-
-<!--private Integer groupId;-->
