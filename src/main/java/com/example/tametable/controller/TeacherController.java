@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/teacher")
 public class TeacherController {
     private final WeekDayService weekDayService;
-    private final ExerciseTimeService exerciseTimeService;
+    private final TimeLessonsService timeLessonsService;
     private final GroupService groupService;
     private final DisciplineService disciplineService;
     private final LessonService lessonService;
@@ -31,7 +31,7 @@ public class TeacherController {
     @GetMapping("/lesson/create")
     public String createLesson(@AuthenticationPrincipal UserPrincipal userPrincipal, Model model) {
         model.addAttribute("weekDays", weekDayService.findWeekDayAll());
-        model.addAttribute("exercisesTime", exerciseTimeService.findExerciseTimeAll());
+        model.addAttribute("timeLessons", timeLessonsService.findExerciseTimeAll());
         model.addAttribute("groups", groupService.findAllGroups());
         model.addAttribute("user", userPrincipal.getUser());
         model.addAttribute("weekTypes", WeekType.values());
