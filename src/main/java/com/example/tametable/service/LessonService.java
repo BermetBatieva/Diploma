@@ -132,7 +132,6 @@ public class LessonService {
             listModel.add(model);
         }
         listModel.sort(Comparator.comparingInt(ListLessonGroup::getNumTimeLesson));
-        System.out.println(listModel);
         return listModel;
 
     }
