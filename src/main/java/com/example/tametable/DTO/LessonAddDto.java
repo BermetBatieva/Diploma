@@ -1,6 +1,5 @@
 package com.example.tametable.DTO;
 
-import com.example.tametable.enums.WeekType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,11 @@ public class LessonAddDto {
 
     private Boolean isLecture;
 
-    private WeekType weekType;
+    private Boolean weekTypeChislitel;
+
+    private Boolean weekTypeZnamenatel;
 
     private Integer groupId;
+
+    private String link;
 }

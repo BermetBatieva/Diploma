@@ -1,7 +1,6 @@
 package com.example.tametable.controller;
 
 import com.example.tametable.DTO.LessonAddDto;
-import com.example.tametable.enums.WeekType;
 import com.example.tametable.security.UserPrincipal;
 import com.example.tametable.service.*;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +33,7 @@ public class TeacherController {
         model.addAttribute("timeLessons", timeLessonsService.findExerciseTimeAll());
         model.addAttribute("groups", groupService.findAllGroups());
         model.addAttribute("user", userPrincipal.getUser());
-        model.addAttribute("weekTypes", WeekType.values());
+//        model.addAttribute("weekTypes", WeekType.values());
         model.addAttribute("disciplines", disciplineService.findDisciplineAll());
         return "createLesson";
     }
