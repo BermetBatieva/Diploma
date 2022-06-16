@@ -14,7 +14,7 @@ public interface LessonRepo extends CrudRepository<Lesson, Long> {
 
     boolean existsByUserAndWeekDay_IdAndTimeLesson_IdAndIsLectionAndStatus(User user, Integer weekDayId, Long timeLessonId, boolean isLection, Status status);
 
-    boolean existsByGroup_IdAndTimeLesson_IdAndWeekDay_IdAndStatus(Integer groupId,Long timeLessonId,Integer weekDayId,Status status);
+    boolean existsByGroup_IdAndTimeLesson_IdAndWeekDay_IdAndStatusAndWeekTypeChislitelAndWeekTypeZnamenatel(Integer groupId,Long timeLessonId,Integer weekDayId,Status status,Boolean chislitel, Boolean znamenatel);
 
     List<Lesson> findByUserAndStatus(User user,Status status);
 
