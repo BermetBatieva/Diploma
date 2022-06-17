@@ -22,7 +22,8 @@ public class TeacherController {
     private final LessonService lessonService;
 
     @GetMapping("/lessons")
-    public String getLessons(Model model) {
+    public String getLessons(Model model, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        model.addAttribute("user", userPrincipal.getUser());
         model.addAttribute("lessons", lessonService.getAllTeacherLessons());
         return "lessons";
     }
