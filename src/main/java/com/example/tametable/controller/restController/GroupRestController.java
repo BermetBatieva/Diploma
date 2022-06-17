@@ -43,4 +43,9 @@ public class GroupRestController {
     public List<ListLessonTeacher> getLessonByTeacher(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         return lessonService.getAllTeacherLessons(userPrincipal.getUser());
     }
+
+    @GetMapping("/all-lessons-by-week/{weekId}")
+    public List<ListLessonGroup> getAllLessonsByWeekId(@PathVariable Integer weekId){
+        return lessonService.getAllLessonsByWeekId(weekId);
+    }
 }

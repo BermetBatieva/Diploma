@@ -163,4 +163,28 @@ public class LessonService {
 
     }
 
+    public List<ListLessonGroup> getAllLessonsByWeekId(Integer weekDayId){
+        List<ListLessonGroup> listModel = new ArrayList<>();
+        List<Lesson> lessons = lessonRepo.findByStatusAndWeekDay_Id(Status.ACTIVE,weekDayId);
+
+        for (Lesson lesson : lessons){
+            ListLessonGroup model = new ListLessonGroup();
+
+            model.setNumTimeLesson(lesson.getTimeLesson().getNumberLesson());
+            model.setTimeLesson(lesson.getTimeLesson().getTime());
+            model.setDiscipline(lesson.getDiscipline().getName());
+            model.setGroup(lesson.getGroup().getName());
+            model.setLink(lesson.getLink());
+            model.setWeekDay(lesson.getWeekDay().getName());
+            model.setWeekTypeChislitel(lesson.getWeekTypeChislitel());
+            model.setWeekTypeZnamenatel(lesson.getWeekTypeZnamenatel());
+            model.setIsLektion(lesson.getIsLection());
+            model.setTeacher(lesson.getUser().getFirstName() + " " + lesson.getUser().getLastName());
+
+            listModel.add(model);
+        }
+        listModel.sort(Comparator.comparingInt(ListLessonGroup::getNumTimeLesson));
+        return listModel;
+    }
+
 }

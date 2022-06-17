@@ -21,4 +21,6 @@ public interface LessonRepo extends CrudRepository<Lesson, Long> {
     List<Lesson>  findByStatusAndGroup_Id(Status status, Integer groupId);
 
     List<Lesson> findByStatusAndGroup_IdAndWeekDay_Id(Status status,Integer groupId, Integer weekDayId);
+
+    List<Lesson> findByStatusAndWeekDay_Id(Status status,Integer weekDayId);
 }
