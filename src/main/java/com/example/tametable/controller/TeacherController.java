@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/teacher")
@@ -24,7 +26,7 @@ public class TeacherController {
     @GetMapping("/lessons")
     public String getLessons(Model model, @AuthenticationPrincipal UserPrincipal userPrincipal) {
         model.addAttribute("user", userPrincipal.getUser());
-        model.addAttribute("lessons", lessonService.getAllTeacherLessons());
+        model.addAttribute("date", LocalDate.now());
         return "lessons";
     }
 
