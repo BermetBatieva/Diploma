@@ -1,12 +1,16 @@
 package com.example.tametable.controller.restController;
 
 import com.example.tametable.DTO.ListLessonGroup;
+import com.example.tametable.DTO.ListLessonTeacher;
 import com.example.tametable.entity.Group;
+import com.example.tametable.entity.Lesson;
+import com.example.tametable.security.UserPrincipal;
 import com.example.tametable.service.GroupService;
 import com.example.tametable.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +35,12 @@ public class GroupRestController {
     }
 
     @GetMapping("/all-lesson-by-group/{groupId}")
-    public List<ListLessonGroup> getLessonsByGroupId(@PathVariable Integer groupId){
+    public List<ListLessonGroup> getLessonsByGroupId(@PathVariable Integer groupId) {
         return lessonService.getAllLessonsByGroupId(groupId);
+    }
+
+    @GetMapping("/all-lesson-teacher")
+    public List<ListLessonTeacher> getLessonByTeacher(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        return lessonService.getAllTeacherLessons(userPrincipal.getUser());
     }
 }
