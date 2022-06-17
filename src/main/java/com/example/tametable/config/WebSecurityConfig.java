@@ -1,5 +1,6 @@
 package com.example.tametable.config;
 
+import com.example.tametable.security.CustomAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -30,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.
                 csrf().and().cors().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/js/**", "/css/**", "/favicon.*", "/user/registration", "/user/resetPassword", "/user/sendEmail", "/api/users", "/api/users/**", "/verify", "/login**", "/logout**","/api/**").permitAll()
+                .antMatchers("/resources/**", "/", "/js/**", "/css/**", "/favicon.*", "/user/registration", "/user/resetPassword", "/user/sendEmail", "/api/users", "/api/users/**", "/verify", "/login**", "/logout**", "/api/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -39,8 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
+                .successHandler(CustomAuthenticationSuccessHandler())
                 .failureHandler(authenticationFailureHandler())
-                .defaultSuccessUrl("/user/students")
                 .and()
                 .logout()
                 .logoutUrl("/logout").permitAll()
@@ -72,5 +74,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return new CustomAuthenticationFailureHandler();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler CustomAuthenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
     }
 }
