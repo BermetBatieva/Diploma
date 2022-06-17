@@ -62,11 +62,11 @@
             <input class="form-check-input" type="checkbox" name="isLecture" id="isLecture">
             <label for="isLecture" class="form-label">Лекция</label>
             <br>
-            <input class="form-check-input" type="checkbox" name="chislitel" id="chislitel">
-            <label for="chislitel" class="form-label">Числитель</label>
+            <input class="form-check-input" type="checkbox" name="weekTypeChislitel" id="weekTypeChislitel">
+            <label for="weekTypeChislitel" class="form-label">Числитель</label>
             <br>
-            <input class="form-check-input" type="checkbox" name="znamenatel" id="znamenatel">
-            <label for="znamenatel" class="form-label">Знаменатель</label>
+            <input class="form-check-input" type="checkbox" name="weekTypeZnamenatel" id="weekTypeZnamenatel">
+            <label for="weekTypeZnamenatel" class="form-label">Знаменатель</label>
         </div>
         <div class="mb-3">
             <label for="group" class="form-label">Выберите группу</label>
@@ -92,7 +92,7 @@
         crossorigin="anonymous"></script>
 <script>
     $("#lesson").submit(function (event) {
-        if (!$("#chislitel").is(":checked") && !$("#znamenatel").is(":checked")) {
+        if (!$("#weekTypeChislitel").is(":checked") && !$("#weekTypeZnamenatel").is(":checked")) {
             event.preventDefault()
             alert("Числитель или знаменатель не могут быть одновременно не выбраны!")
         }
