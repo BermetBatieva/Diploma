@@ -187,4 +187,31 @@ public class LessonService {
         return listModel;
     }
 
+    public List<ListLessonGroup> getAllLessonsForStudent(){
+        User user = userService.getUser();
+
+        List<Lesson> lessons = lessonRepo.findByStatusAndGroup_Id(Status.ACTIVE,user.getGroup().getId());
+
+        List<ListLessonGroup> groupListModel = new ArrayList<>();
+
+        for (Lesson lesson : lessons){
+            ListLessonGroup model = new ListLessonGroup();
+
+            model.setNumTimeLesson(lesson.getTimeLesson().getNumberLesson());
+            model.setTimeLesson(lesson.getTimeLesson().getTime());
+            model.setDiscipline(lesson.getDiscipline().getName());
+            model.setGroup(lesson.getGroup().getName());
+            model.setLink(lesson.getLink());
+            model.setWeekDay(lesson.getWeekDay().getName());
+            model.setWeekTypeChislitel(lesson.getWeekTypeChislitel());
+            model.setWeekTypeZnamenatel(lesson.getWeekTypeZnamenatel());
+            model.setIsLektion(lesson.getIsLection());
+            model.setTeacher(lesson.getUser().getFirstName() + " " + lesson.getUser().getLastName());
+
+            groupListModel.add(model);
+        }
+        groupListModel.sort(Comparator.comparingInt(ListLessonGroup::getNumTimeLesson));
+        return groupListModel;
+    }
+
 }
