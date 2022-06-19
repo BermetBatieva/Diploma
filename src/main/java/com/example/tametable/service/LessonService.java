@@ -84,12 +84,12 @@ public class LessonService {
                 lesson.setStatus(Status.ACTIVE);
                 lesson.setTimeLesson(timeLessonRepo.findById(lessonAdd.getTimeLessonId()).orElse(null));
                 lesson.setGroup(groupRepository.findById(lessonAdd.getGroupId()).orElse(null));
-                lesson.setIsLection(lessonAdd.getIsLecture());
+                lesson.setLection(lessonAdd.isLecture());
                 lesson.setDiscipline(disciplineRepository.findById(lessonAdd.getDisciplineId()).orElse(null));
                 lesson.setWeekDay(weekDayRepository.findById(lessonAdd.getWeekId()).orElse(null));
-                lesson.setWeekTypeChislitel(lessonAdd.getWeekTypeChislitel());
+                lesson.setWeekTypeChislitel(lessonAdd.isWeekTypeChislitel());
                 lesson.setLink(lessonAdd.getLink());
-                lesson.setWeekTypeZnamenatel(lessonAdd.getWeekTypeZnamenatel());
+                lesson.setWeekTypeZnamenatel(lessonAdd.isWeekTypeZnamenatel());
                 lessonRepo.save(lesson);
             } else if (lessonRepo.existsByGroup_IdAndTimeLesson_IdAndWeekDay_IdAndStatusAndWeekTypeChislitelAndWeekTypeZnamenatel
                     (lessonAdd.getGroupId(), lessonAdd.getTimeLessonId(), lessonAdd.getWeekId(), Status.ACTIVE, false, true)) {
@@ -97,10 +97,10 @@ public class LessonService {
                 lesson.setUser(user);
                 lesson.setTimeLesson(timeLessonRepo.findById(lessonAdd.getTimeLessonId()).orElse(null));
                 lesson.setGroup(groupRepository.findById(lessonAdd.getGroupId()).orElse(null));
-                lesson.setIsLection(lessonAdd.getIsLecture());
+                lesson.setLection(lessonAdd.isLecture());
                 lesson.setDiscipline(disciplineRepository.findById(lessonAdd.getDisciplineId()).orElse(null));
                 lesson.setWeekDay(weekDayRepository.findById(lessonAdd.getWeekId()).orElse(null));
-                lesson.setWeekTypeChislitel(lessonAdd.getWeekTypeChislitel()); // тут только учит-ся числитель
+                lesson.setWeekTypeChislitel(lessonAdd.isWeekTypeChislitel()); // тут только учит-ся числитель
                 lesson.setLink(lessonAdd.getLink());
                 lessonRepo.save(lesson);
             } else if (lessonRepo.existsByGroup_IdAndTimeLesson_IdAndWeekDay_IdAndStatusAndWeekTypeChislitelAndWeekTypeZnamenatel
@@ -109,10 +109,10 @@ public class LessonService {
                 lesson.setUser(user);
                 lesson.setTimeLesson(timeLessonRepo.findById(lessonAdd.getTimeLessonId()).orElse(null));
                 lesson.setGroup(groupRepository.findById(lessonAdd.getGroupId()).orElse(null));
-                lesson.setIsLection(lessonAdd.getIsLecture());
+                lesson.setLection(lessonAdd.isLecture());
                 lesson.setDiscipline(disciplineRepository.findById(lessonAdd.getDisciplineId()).orElse(null));
                 lesson.setWeekDay(weekDayRepository.findById(lessonAdd.getWeekId()).orElse(null));
-                lesson.setWeekTypeZnamenatel(lessonAdd.getWeekTypeZnamenatel());
+                lesson.setWeekTypeZnamenatel(lessonAdd.isWeekTypeZnamenatel());
                 lesson.setLink(lessonAdd.getLink());
                 lessonRepo.save(lesson);
             }
@@ -130,9 +130,9 @@ public class LessonService {
             listLessonTeacherModel.setGroup(lesson.getGroup().getName());
             listLessonTeacherModel.setLink(lesson.getLink());
             listLessonTeacherModel.setWeekDay(lesson.getWeekDay().getName());
-            listLessonTeacherModel.setWeekTypeChislitel(lesson.getWeekTypeChislitel());
-            listLessonTeacherModel.setWeekTypeZnamenatel(lesson.getWeekTypeZnamenatel());
-            listLessonTeacherModel.setIsLektion(lesson.getIsLection());
+            listLessonTeacherModel.setWeekTypeChislitel(lesson.isWeekTypeChislitel());
+            listLessonTeacherModel.setWeekTypeZnamenatel(lesson.isWeekTypeZnamenatel());
+            listLessonTeacherModel.setIsLektion(lesson.isLection());
             listModel.add(listLessonTeacherModel);
         }
         return listModel;
@@ -152,9 +152,9 @@ public class LessonService {
             model.setGroup(lesson.getGroup().getName());
             model.setLink(lesson.getLink());
             model.setWeekDay(lesson.getWeekDay().getName());
-            model.setWeekTypeChislitel(lesson.getWeekTypeChislitel());
-            model.setWeekTypeZnamenatel(lesson.getWeekTypeZnamenatel());
-            model.setIsLektion(lesson.getIsLection());
+            model.setWeekTypeChislitel(lesson.isWeekTypeChislitel());
+            model.setWeekTypeZnamenatel(lesson.isWeekTypeZnamenatel());
+            model.setIsLektion(lesson.isLection());
             model.setTeacher(lesson.getUser().getFirstName() + " " + lesson.getUser().getLastName());
             listModel.add(model);
         }
@@ -176,9 +176,9 @@ public class LessonService {
             model.setGroup(lesson.getGroup().getName());
             model.setLink(lesson.getLink());
             model.setWeekDay(lesson.getWeekDay().getName());
-            model.setWeekTypeChislitel(lesson.getWeekTypeChislitel());
-            model.setWeekTypeZnamenatel(lesson.getWeekTypeZnamenatel());
-            model.setIsLektion(lesson.getIsLection());
+            model.setWeekTypeChislitel(lesson.isWeekTypeChislitel());
+            model.setWeekTypeZnamenatel(lesson.isWeekTypeZnamenatel());
+            model.setIsLektion(lesson.isLection());
             model.setTeacher(lesson.getUser().getFirstName() + " " + lesson.getUser().getLastName());
 
             listModel.add(model);
@@ -203,9 +203,9 @@ public class LessonService {
             model.setGroup(lesson.getGroup().getName());
             model.setLink(lesson.getLink());
             model.setWeekDay(lesson.getWeekDay().getName());
-            model.setWeekTypeChislitel(lesson.getWeekTypeChislitel());
-            model.setWeekTypeZnamenatel(lesson.getWeekTypeZnamenatel());
-            model.setIsLektion(lesson.getIsLection());
+            model.setWeekTypeChislitel(lesson.isWeekTypeChislitel());
+            model.setWeekTypeZnamenatel(lesson.isWeekTypeZnamenatel());
+            model.setIsLektion(lesson.isLection());
             model.setTeacher(lesson.getUser().getFirstName() + " " + lesson.getUser().getLastName());
 
             groupListModel.add(model);

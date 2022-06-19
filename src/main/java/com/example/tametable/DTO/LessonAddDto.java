@@ -15,11 +15,11 @@ public class LessonAddDto {
 
     private Long timeLessonId;
 
-    private Boolean isLecture;
+    private boolean isLecture;
 
-    private Boolean weekTypeChislitel;
+    private boolean weekTypeChislitel;
 
-    private Boolean weekTypeZnamenatel;
+    private boolean weekTypeZnamenatel;
 
     private Integer groupId;
 

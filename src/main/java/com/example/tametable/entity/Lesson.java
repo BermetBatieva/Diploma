@@ -37,11 +37,11 @@ public class Lesson {
     @JoinColumn(name = "time_id", referencedColumnName = "id")
     TimeLesson timeLesson;
 
-    Boolean isLection;
+    boolean isLection;
 
-    Boolean weekTypeChislitel;
+    boolean weekTypeChislitel;
 
-    Boolean weekTypeZnamenatel;
+    boolean weekTypeZnamenatel;
 
     String link;
 
