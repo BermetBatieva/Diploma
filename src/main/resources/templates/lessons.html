@@ -35,6 +35,7 @@
             <th scope="col">Тип занятия</th>
             <th scope="col">Неделя</th>
             <th scope="col">Ссылка на видеоконференцию</th>
+            <th th:if="${user.getRole().getPermission().contains(permission)}" scope="col">Действие</th>
         </tr>
         </thead>
         <tbody>
@@ -42,6 +43,7 @@
         </tbody>
     </table>
 </div>
+<input type="hidden" id="permission" th:value="${permission}">
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -54,7 +56,7 @@
     })
 
     function renderLessons() {
-        $.get("http://localhost:8080/api/all-lesson-teacher", function (data) {
+        $.get("http://localhost:8080/api/all-lessons-by-week/" + $(".active").data("id"), function (data) {
             let lessons = ''
             let week = ''
             let typeLesson = ''
@@ -78,9 +80,12 @@
                         <td>${lesson.group}</td>
                         <td>${typeLesson}</td>
                         <td>${week}</td>
-                        <td>${lesson.link}</td>
-                    </tr>
+                        <td style="width: 300px"><a href="${lesson.link}"><img src="/images/video-call.png"></a></td>
                 `
+                if ($("#permission").val() == 'ACTION_LESSONS') {
+                    lessons += `<td><a href="/teacher/lesson/update/${lesson.id}" class="change btn btn-warning">Изменить</a></td>`
+                }
+                lessons += `</tr>`
             })
             document.querySelector("#lessons tbody").innerHTML = lessons
         })
