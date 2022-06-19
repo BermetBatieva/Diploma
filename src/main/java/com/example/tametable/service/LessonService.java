@@ -163,11 +163,11 @@ public class LessonService {
 
     }
 
-    public List<ListLessonGroup> getAllLessonsByWeekId(Integer weekDayId){
+    public List<ListLessonGroup> getAllLessonsByWeekId(Integer weekDayId) {
         List<ListLessonGroup> listModel = new ArrayList<>();
-        List<Lesson> lessons = lessonRepo.findByStatusAndWeekDay_Id(Status.ACTIVE,weekDayId);
+        List<Lesson> lessons = lessonRepo.findByStatusAndWeekDay_Id(Status.ACTIVE, weekDayId);
 
-        for (Lesson lesson : lessons){
+        for (Lesson lesson : lessons) {
             ListLessonGroup model = new ListLessonGroup();
 
             model.setNumTimeLesson(lesson.getTimeLesson().getNumberLesson());
@@ -187,14 +187,13 @@ public class LessonService {
         return listModel;
     }
 
-    public List<ListLessonGroup> getAllLessonsForStudent(){
-        User user = userService.getUser();
+    public List<ListLessonGroup> getAllLessonsForStudent(User user) {
 
-        List<Lesson> lessons = lessonRepo.findByStatusAndGroup_Id(Status.ACTIVE,user.getGroup().getId());
+        List<Lesson> lessons = lessonRepo.findByStatusAndGroup_Id(Status.ACTIVE, user.getGroup().getId());
 
         List<ListLessonGroup> groupListModel = new ArrayList<>();
 
-        for (Lesson lesson : lessons){
+        for (Lesson lesson : lessons) {
             ListLessonGroup model = new ListLessonGroup();
 
             model.setNumTimeLesson(lesson.getTimeLesson().getNumberLesson());
@@ -214,4 +213,17 @@ public class LessonService {
         return groupListModel;
     }
 
+    public void updateLesson(Long id, LessonAddDto lessonAddDto) {
+        Lesson lesson = lessonRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Doesn't find with id " + id));
+        lesson.setDiscipline(disciplineRepository.findById(lessonAddDto.getDisciplineId()).orElse(null));
+        lesson.setWeekDay(weekDayRepository.findById(lessonAddDto.getWeekId()).orElse(null));
+        lesson.setTimeLesson(timeLessonRepo.findById(lessonAddDto.getTimeLessonId()).orElse(null));
+        lesson.setLection(lessonAddDto.isLecture());
+        lesson.setWeekTypeChislitel(lessonAddDto.isWeekTypeChislitel());
+        lesson.setWeekTypeZnamenatel(lessonAddDto.isWeekTypeZnamenatel());
+        lesson.setGroup(groupRepository.findById(lessonAddDto.getGroupId()).orElse(null));
+        lesson.setLink(lessonAddDto.getLink());
+        lessonRepo.save(lesson);
+    }
 }
