@@ -30,15 +30,15 @@ public class UserRestController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> addUser(@RequestBody CreateUserDTO userDTO) {
+    public ResponseEntity<String> addUser(@RequestBody CreateUserDTO userDTO) {
 
         Optional<User> userByUsername = userService.findUserByUsername(userDTO);
         Optional<User> userByEmail = userService.findUserByEmail(userDTO);
 
         if (userByEmail.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Пользователь с таким email уже существует!", HttpStatus.BAD_REQUEST);
         } else if (userByUsername.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Пользователь с таким логином уже существует!", HttpStatus.BAD_REQUEST);
         }
 
         if (userDTO.getRole().equals("TEACHER")) {
@@ -47,7 +47,7 @@ public class UserRestController {
             userService.saveStudent(userDTO);
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Регистрация прошла успешна!", HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
