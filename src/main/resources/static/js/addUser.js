@@ -41,6 +41,12 @@ function addUser() {
             let token = $("meta[name='_csrf']").attr("content");
             let header = $("meta[name='_csrf_header']").attr("content");
             xhr.setRequestHeader(header, token)
+        },
+        success: function (data) {
+            alert(data.responseText)
+        },
+        error: function (data) {
+            alert(data.responseText)
         }
     })
 }
