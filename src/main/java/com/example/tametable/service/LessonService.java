@@ -73,25 +73,40 @@ public class LessonService {
             return -1L;
     }
 
-    public void createLesson(LessonAddDto lessonAdd) throws Exception {
+    public String createLesson(LessonAddDto lessonAdd) throws Exception {
         User user = userService.getUser();
         if (lessonRepo.existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(user, lessonAdd.getWeekId(), lessonAdd.getTimeLessonId(),Status.ACTIVE,
                 true, true,lessonAdd.getGroupId())) {
-            throw new Exception("уже существует!");
+            return "уже существует!";
+        }
+        if (!lessonRepo.existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(user, lessonAdd.getWeekId(), lessonAdd.getTimeLessonId(),Status.ACTIVE,
+                true, true,lessonAdd.getGroupId())) {
+            Lesson lesson = new Lesson();
+            lesson.setUser(user);
+            lesson.setStatus(Status.ACTIVE);
+            lesson.setTimeLesson(timeLessonRepo.findById(lessonAdd.getTimeLessonId()).orElse(null));
+            lesson.setGroup(groupRepository.findById(lessonAdd.getGroupId()).orElse(null));
+            lesson.setLection(lessonAdd.isLecture());
+            lesson.setDiscipline(disciplineRepository.findById(lessonAdd.getDisciplineId()).orElse(null));
+            lesson.setWeekDay(weekDayRepository.findById(lessonAdd.getWeekId()).orElse(null));
+            lesson.setWeekTypeZnamenatel(lessonAdd.isWeekTypeZnamenatel());
+            lesson.setLink(lessonAdd.getLink());
+            lesson.setWeekTypeChislitel(lessonAdd.isWeekTypeChislitel());
+            lessonRepo.save(lesson);
         } else if (!lessonRepo.existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(user,
                 lessonAdd.getWeekId(), lessonAdd.getTimeLessonId(), Status.ACTIVE, false,
                 true,lessonAdd.getGroupId())) {
-                Lesson lesson = new Lesson();
-                lesson.setUser(user);
-                lesson.setStatus(Status.ACTIVE);
-                lesson.setTimeLesson(timeLessonRepo.findById(lessonAdd.getTimeLessonId()).orElse(null));
-                lesson.setGroup(groupRepository.findById(lessonAdd.getGroupId()).orElse(null));
-                lesson.setLection(lessonAdd.isLecture());
-                lesson.setDiscipline(disciplineRepository.findById(lessonAdd.getDisciplineId()).orElse(null));
-                lesson.setWeekDay(weekDayRepository.findById(lessonAdd.getWeekId()).orElse(null));
-                lesson.setWeekTypeZnamenatel(lessonAdd.isWeekTypeZnamenatel());
-                lesson.setLink(lessonAdd.getLink());
-                lessonRepo.save(lesson);
+            Lesson lesson = new Lesson();
+            lesson.setUser(user);
+            lesson.setStatus(Status.ACTIVE);
+            lesson.setTimeLesson(timeLessonRepo.findById(lessonAdd.getTimeLessonId()).orElse(null));
+            lesson.setGroup(groupRepository.findById(lessonAdd.getGroupId()).orElse(null));
+            lesson.setLection(lessonAdd.isLecture());
+            lesson.setDiscipline(disciplineRepository.findById(lessonAdd.getDisciplineId()).orElse(null));
+            lesson.setWeekDay(weekDayRepository.findById(lessonAdd.getWeekId()).orElse(null));
+            lesson.setWeekTypeZnamenatel(lessonAdd.isWeekTypeZnamenatel());
+            lesson.setLink(lessonAdd.getLink());
+            lessonRepo.save(lesson);
         }else if(!lessonRepo.existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(user,
                 lessonAdd.getWeekId(), lessonAdd.getTimeLessonId(),  Status.ACTIVE, true,
                 false,lessonAdd.getGroupId())) {
@@ -107,6 +122,7 @@ public class LessonService {
                 lesson.setLink(lessonAdd.getLink());
                 lessonRepo.save(lesson);
             }
+        return "ok!";
     }
 
 
@@ -136,7 +152,7 @@ public class LessonService {
         for (Lesson lesson : lessonList) {
 
             ListLessonGroup model = new ListLessonGroup();
-
+            model.setIdLesson(lesson.getId());
             model.setNumTimeLesson(lesson.getTimeLesson().getNumberLesson());
             model.setTimeLesson(lesson.getTimeLesson().getTime());
             model.setDiscipline(lesson.getDiscipline().getName());

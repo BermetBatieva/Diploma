@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ListLessonGroup {
+
+    private Long idLesson;
+
     private String discipline;
 
     private String weekDay;
