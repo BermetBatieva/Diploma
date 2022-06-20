@@ -45,7 +45,7 @@ public class TeacherController {
     }
 
     @PostMapping("/lesson/create")
-    public String createLesson(LessonAddDto lessonAddDto) {
+    public String createLesson(LessonAddDto lessonAddDto) throws Exception {
         lessonService.createLesson(lessonAddDto);
         return "redirect:/teacher/lessons";
     }

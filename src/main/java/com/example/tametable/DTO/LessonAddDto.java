@@ -15,7 +15,7 @@ public class LessonAddDto {
 
     private Long timeLessonId;
 
-    private boolean isLecture;
+    private boolean lecture;
 
     private boolean weekTypeChislitel;
 
