@@ -73,11 +73,11 @@ public class LessonService {
             return -1L;
     }
 
-    public String createLesson(LessonAddDto lessonAdd) throws Exception {
+    public void createLesson(LessonAddDto lessonAdd) throws Exception {
         User user = userService.getUser();
         if (lessonRepo.existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(user, lessonAdd.getWeekId(), lessonAdd.getTimeLessonId(),Status.ACTIVE,
                 true, true,lessonAdd.getGroupId())) {
-            return "уже существует!";
+            throw new Exception("уже существует!");
         }
         if (!lessonRepo.existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(user, lessonAdd.getWeekId(), lessonAdd.getTimeLessonId(),Status.ACTIVE,
                 true, true,lessonAdd.getGroupId())) {
@@ -122,7 +122,6 @@ public class LessonService {
                 lesson.setLink(lessonAdd.getLink());
                 lessonRepo.save(lesson);
             }
-        return "ok!";
     }
 
 
