@@ -8,12 +8,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/default.css">
-    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/style.css">
     <title>Title</title>
 </head>
 <body>
+<nav th:if="${user.getRole().getPermission().contains(permission)}"
+     class="navbar navbar-expand-lg navbar-light bg-light">
+    <!--/*@thymesVar id="user" type="com.example.tametable.entity.User"*/-->
+    <div class="container">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a class="navbar-brand" href="/student/lessons">Расписание</a>
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/teacher/lesson/create">Добавить занятие</a>
+                    </li>
+                    <li class="nav-item">
+                        <select class="form-select" id="groups" name="groups" required>
+                            <option value="all">Все группы</option>
+                            <option th:each="group : ${groups}"
+                                    th:value="${group.getId()}" th:text="${group.getName()}">
+                            </option>
+                        </select>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item" th:text="${user.getUsername()}" style="line-height: 38px"></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout">Выйти</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
 <ul class="weekdays">
     <li class="" th:classappend="${date.getDayOfWeek().name.equals('MONDAY')} ? 'active' : ''" data-id="1">Понедельник
     </li>
@@ -25,6 +57,7 @@
     <li class="" th:classappend="${date.getDayOfWeek().name.equals('SATURDAY')} ? 'active' : ''" data-id="6">Суббота
     </li>
 </ul>
+
 <div class="container">
     <table class="table" id="lessons">
         <thead>
@@ -51,12 +84,23 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
 <script>
+    let url = ""
     $(document).ready(function () {
-        renderLessons()
+        url = "http://localhost:8080/api/all-lessons-by-week/" + $(".active").data("id")
+        renderLessons(url)
+    })
+
+    $("#groups").change(function () {
+        if ($("#groups").val() == 'all') {
+            url = "http://localhost:8080/api/all-lessons-by-week/" + $(".active").data("id")
+        } else {
+            url = "http://localhost:8080/api/all-lesson-by-week-groupId/" + $(".active").data("id") + "/" + $("#groups").val()
+        }
+        renderLessons(url)
     })
 
     function renderLessons() {
-        $.get("http://localhost:8080/api/all-lessons-by-week/" + $(".active").data("id"), function (data) {
+        $.get(url, function (data) {
             let lessons = ''
             let week = ''
             let typeLesson = ''
@@ -68,7 +112,7 @@
                 } else if (lesson.weekTypeChislitel) {
                     week = 'Числитель'
                 }
-                if (lesson.isLecture) {
+                if (lesson.isLektion) {
                     typeLesson = 'Лекция'
                 } else {
                     typeLesson = 'Лабораторная'
@@ -80,15 +124,16 @@
                         <td>${lesson.group}</td>
                         <td>${typeLesson}</td>
                         <td>${week}</td>
-                        <td style="width: 300px"><a href="${lesson.link}"><img src="/images/video-call.png"></a></td>
+                        <td style="width: 300px"><a href="${lesson.link}"><img width="38" src="/images/video-call.png"></a></td>
                 `
                 if ($("#permission").val() == 'ACTION_LESSONS') {
-                    lessons += `<td><a href="/teacher/lesson/update/${lesson.id}" class="change btn btn-warning">Изменить</a></td>`
+                    lessons += `<td><a href="/teacher/lesson/update/${lesson.idLesson}" class="change btn btn-warning">Изменить</a></td>`
                 }
                 lessons += `</tr>`
             })
             document.querySelector("#lessons tbody").innerHTML = lessons
         })
     }
+
 </script>
 </html>

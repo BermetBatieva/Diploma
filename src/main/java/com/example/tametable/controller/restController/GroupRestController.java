@@ -3,7 +3,6 @@ package com.example.tametable.controller.restController;
 import com.example.tametable.DTO.ListLessonGroup;
 import com.example.tametable.DTO.ListLessonTeacher;
 import com.example.tametable.entity.Group;
-import com.example.tametable.entity.Lesson;
 import com.example.tametable.security.UserPrincipal;
 import com.example.tametable.service.GroupService;
 import com.example.tametable.service.LessonService;
@@ -45,7 +44,12 @@ public class GroupRestController {
     }
 
     @GetMapping("/all-lessons-by-week/{weekId}")
-    public List<ListLessonGroup> getAllLessonsByWeekId(@PathVariable Integer weekId){
+    public List<ListLessonGroup> getAllLessonsByWeekId(@PathVariable Integer weekId) {
         return lessonService.getAllLessonsByWeekId(weekId);
+    }
+
+    @GetMapping("/all-lesson-by-week-groupId/{weekId}/{groupId}")
+    public List<ListLessonGroup> getAllLessonsByWeekIdAndGroupId(@PathVariable int weekId, @PathVariable int groupId) {
+        return lessonService.getAllLessonsByGroupIdAndWeekId(groupId, weekId);
     }
 }

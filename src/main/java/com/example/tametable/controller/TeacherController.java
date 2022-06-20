@@ -1,6 +1,7 @@
 package com.example.tametable.controller;
 
 import com.example.tametable.DTO.LessonAddDto;
+import com.example.tametable.entity.Group;
 import com.example.tametable.entity.Lesson;
 import com.example.tametable.entity.Permission;
 import com.example.tametable.security.UserPrincipal;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,6 +32,8 @@ public class TeacherController {
     @GetMapping("/lessons")
     public String getLessons(Model model, @AuthenticationPrincipal UserPrincipal userPrincipal) {
         model.addAttribute("user", userPrincipal.getUser());
+        Set<Group> groups = lessonService.findAllByUser(userPrincipal.getUser()).stream().map(Lesson::getGroup).collect(Collectors.toSet());
+        model.addAttribute("groups", groups);
         model.addAttribute("permission", Permission.ACTION_LESSONS);
         model.addAttribute("date", LocalDate.now());
         return "lessons";
@@ -64,6 +69,6 @@ public class TeacherController {
     @PostMapping("/lesson/update/{id}")
     public String updateLesson(@PathVariable Long id, LessonAddDto lessonAddDto) {
         lessonService.updateLesson(id, lessonAddDto);
-        return "redirect:/lessons";
+        return "redirect:/teacher/lessons";
     }
 }

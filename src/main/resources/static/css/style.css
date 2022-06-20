@@ -34,3 +34,7 @@
 .active {
     background: yellow;
 }
+
+.weekdays {
+    list-style-type: none;
+}

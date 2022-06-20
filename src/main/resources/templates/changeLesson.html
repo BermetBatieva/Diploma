@@ -33,7 +33,7 @@
 </nav>
 <div class="container">
     <h1>Изменить занятие</h1>
-    <form id="lesson" th:action="@{/teacher/lesson/create}" method="post">
+    <form id="lesson" th:action="@{/teacher/lesson/update/{id} (id = ${lesson.getId()})}" method="post">
         <div class="mb-3">
             <label for="discipline" class="form-label">Выберите дисциплину</label>
             <select class="form-select" id="discipline" name="disciplineId" required>
@@ -62,7 +62,7 @@
             </select>
         </div>
         <div class="mb-3">
-            <input th:checked="${lesson.isLection()}" class="form-check-input" type="checkbox" name="isLecture"
+            <input th:checked="${lesson.isLection()}" class="form-check-input" type="checkbox" name="lecture"
                    id="isLecture">
             <label for="isLecture" class="form-label">Лекция</label>
             <br>
