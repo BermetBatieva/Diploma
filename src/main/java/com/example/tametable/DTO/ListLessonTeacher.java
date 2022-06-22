@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ListLessonTeacher {
+    private Long id;
 
     private String discipline;
 
