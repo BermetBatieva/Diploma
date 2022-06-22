@@ -187,7 +187,7 @@ public class LessonService {
         List<Lesson> lessons = lessonRepo.findByUserAndStatus(user, Status.ACTIVE);
         for (Lesson lesson : lessons) {
             ListLessonTeacher listLessonTeacherModel = new ListLessonTeacher();
-
+            listLessonTeacherModel.setId(lesson.getId());
             listLessonTeacherModel.setTimeLesson(lesson.getTimeLesson().getTime());
             listLessonTeacherModel.setDiscipline(lesson.getDiscipline().getName());
             listLessonTeacherModel.setGroup(lesson.getGroup().getName());
