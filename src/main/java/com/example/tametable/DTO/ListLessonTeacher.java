@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ListLessonTeacher {
-    private Long id;
+    private Long idLesson;
 
     private String discipline;
 

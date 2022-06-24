@@ -38,3 +38,7 @@
 .weekdays {
     list-style-type: none;
 }
+
+.week-id:hover {
+    background: yellow;
+}

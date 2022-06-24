@@ -190,7 +190,7 @@ public class LessonService {
                return "такой lesson уже существует!";
         }
 
-        return null;
+        return "";
     }
 
 
@@ -200,7 +200,7 @@ public class LessonService {
         List<Lesson> lessons = lessonRepo.findByUserAndStatus(user, Status.ACTIVE);
         for (Lesson lesson : lessons) {
             ListLessonTeacher listLessonTeacherModel = new ListLessonTeacher();
-            listLessonTeacherModel.setId(lesson.getId());
+            listLessonTeacherModel.setIdLesson(lesson.getId());
             listLessonTeacherModel.setTimeLesson(lesson.getTimeLesson().getTime());
             listLessonTeacherModel.setDiscipline(lesson.getDiscipline().getName());
             listLessonTeacherModel.setGroup(lesson.getGroup().getName());
@@ -276,6 +276,7 @@ public class LessonService {
             ListLessonGroup model = new ListLessonGroup();
 
             model.setNumTimeLesson(lesson.getTimeLesson().getNumberLesson());
+            model.setIdLesson(lesson.getId());
             model.setTimeLesson(lesson.getTimeLesson().getTime());
             model.setDiscipline(lesson.getDiscipline().getName());
             model.setGroup(lesson.getGroup().getName());

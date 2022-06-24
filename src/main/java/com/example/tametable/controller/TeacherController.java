@@ -1,6 +1,5 @@
 package com.example.tametable.controller;
 
-import com.example.tametable.DTO.LessonAddDto;
 import com.example.tametable.entity.Group;
 import com.example.tametable.entity.Lesson;
 import com.example.tametable.entity.Permission;
@@ -12,10 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,7 +32,6 @@ public class TeacherController {
         Set<Group> groups = lessonService.findAllByUser(userPrincipal.getUser()).stream().map(Lesson::getGroup).collect(Collectors.toSet());
         model.addAttribute("groups", groups);
         model.addAttribute("permission", Permission.ACTION_LESSONS);
-        model.addAttribute("date", LocalDate.now());
         return "lessons";
     }
 
@@ -49,12 +45,6 @@ public class TeacherController {
         return "createLesson";
     }
 
-    @PostMapping("/lesson/create")
-    public String createLesson(LessonAddDto lessonAddDto) throws Exception {
-        lessonService.createLesson(lessonAddDto);
-        return "redirect:/teacher/lessons";
-    }
-
     @GetMapping("/lesson/update/{id}")
     public String updateLesson(@PathVariable(name = "id") Lesson lesson, Model model, @AuthenticationPrincipal UserPrincipal userPrincipal) {
         model.addAttribute("lesson", lesson);
@@ -64,11 +54,5 @@ public class TeacherController {
         model.addAttribute("disciplines", disciplineService.findDisciplineAll());
         model.addAttribute("user", userPrincipal.getUser());
         return "changeLesson";
-    }
-
-    @PostMapping("/lesson/update/{id}")
-    public String updateLesson(@PathVariable Long id, LessonAddDto lessonAddDto) {
-        lessonService.updateLesson(id, lessonAddDto);
-        return "redirect:/teacher/lessons";
     }
 }

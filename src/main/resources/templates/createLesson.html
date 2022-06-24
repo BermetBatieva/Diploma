@@ -19,7 +19,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="navbar-brand" href="/schedule/">Расписание</a>
+                <a class="navbar-brand" href="/teacher/lessons">Расписание</a>
                 <ul class="navbar-nav mb-2 mb-lg-0">
 
                 </ul>
@@ -33,7 +33,7 @@
 </nav>
 <div class="container">
     <h1>Добавить занятие</h1>
-    <form id="lesson" th:action="@{/teacher/lesson/create}" method="post">
+    <form id="lesson">
         <div class="mb-3">
             <label for="discipline" class="form-label">Выберите дисциплину</label>
             <select class="form-select" id="discipline" name="disciplineId" required>
@@ -95,7 +95,11 @@
         </div>
         <div class="mb-3">
             <label for="link" class="form-label">Ссылка для видеоконференции</label>
-            <input type="text" class="form-control" id="link" name="link" required>
+            <input type="text" class="form-control" id="link" name="link">
+        </div>
+        <div class="mb-3">
+            <label for="link" class="form-label">Ссылка для группы</label>
+            <input type="text" class="form-control" id="link2" name="link">
         </div>
         <input type="submit" class="btn btn-success"
                value="Добавить занятие">
@@ -107,70 +111,5 @@
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
-<script>
-    // $("#lesson").submit(function (event) {
-    //     if (!$("#weekTypeChislitel").is(":checked") && !$("#weekTypeZnamenatel").is(":checked")) {
-    //         event.preventDefault()
-    //         alert("Числитель или знаменатель не могут быть одновременно не выбраны!")
-    //     }
-    // })
-    $(document).ready(function () {
-        renderLessons($("#group").val())
-    })
-
-    $("#group").change(function () {
-        renderLessons($("#group").val())
-    })
-
-    function renderLessons(id) {
-        $.get("http://localhost:8080/api/all-lesson-by-group/" + id, function (data) {
-
-            let output = data
-            console.log(data)
-            console.log(output)
-            let lessons = ''
-            let typeLesson = ''
-            let typeWeek = ''
-            $.each(data, function (index, lesson) {
-                lessons += `
-                    <tr>
-                        <td scope="row">${lesson.timeLesson}</td>
-                        <td scope="row">${lesson.discipline}</td>
-                        <td scope="row">${lesson.group}</td>
-                        <td scope="row">${lesson.teacher}</td>
-                `
-                if (lesson.isLecture) {
-                    typeLesson = 'Лекция'
-                } else {
-                    typeLesson = 'Лабораторная'
-                }
-                lessons += `<td scope="row">${typeLesson}</td>`
-                if (lesson.weekTypeZnamenatel && lesson.weekTypeChislitel) {
-                    typeWeek = 'Каждую неделю'
-                } else if (lesson.weekTypeZnamenatel) {
-                    typeWeek = 'Знаменатель'
-                } else {
-                    typeWeek = 'Числитель'
-                }
-                lessons += `<td>${typeWeek}</td></tr>`
-            })
-            document.querySelector("#lessons tbody").innerHTML = lessons
-        })
-    }
-    function step1 (input) {
-        let output = [];
-
-        for (let i=1; i <= 8; i++) {
-            if (input.includes(i)) {
-                let index = input.indexOf(i);
-                output.push(input[index]);
-            }
-            else {
-                output.push(0);
-            }
-        }
-
-        return output;
-    }
-</script>
+<script src="/js/createLesson.js"></script>
 </html>
