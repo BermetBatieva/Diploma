@@ -33,7 +33,8 @@ function createLesson() {
         weekTypeZnamenatel: $("#weekTypeZnamenatel").is(":checked"),
         groupId: parseInt($("#group").val()),
         link: $("#link").val(),
-        link2: $("#link2").val()
+        link2: $("#link2").val(),
+        teacherId: $("#teacherId").val()
     }
     $.ajax({
         type: "POST",

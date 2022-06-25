@@ -1,13 +1,15 @@
 package com.example.tametable.service;
 
-import com.example.tametable.DTO.*;
+import com.example.tametable.DTO.LessonAddDto;
+import com.example.tametable.DTO.ListLessonGroup;
+import com.example.tametable.DTO.ListLessonTeacher;
+import com.example.tametable.DTO.ListTeacher;
 import com.example.tametable.entity.Lesson;
 import com.example.tametable.entity.Role;
 import com.example.tametable.entity.User;
 import com.example.tametable.enums.Status;
 import com.example.tametable.exception.EntityNotFoundException;
 import com.example.tametable.repository.*;
-import com.google.api.gax.rpc.AlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

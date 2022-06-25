@@ -22,12 +22,12 @@ public class LessonRestController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createLesson(@RequestBody LessonAddDto lessonAddDto, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        String msg;
         if (userPrincipal.getUser().getRole().name().equals("ADMIN")) {
-            lessonService.createLessonFromAdmin(lessonAddDto);
+            msg = lessonService.createLessonFromAdmin(lessonAddDto);
         } else {
-            lessonService.createLesson(lessonAddDto);
+            msg = lessonService.createLesson(lessonAddDto);
         }
-        String msg = lessonService.createLesson(lessonAddDto);
         return new ResponseEntity<>(msg, HttpStatus.OK);
     }
 

@@ -41,6 +41,7 @@ public class TeacherController {
         model.addAttribute("timeLessons", timeLessonsService.findExerciseTimeAll());
         model.addAttribute("groups", groupService.findAllGroups());
         model.addAttribute("user", userPrincipal.getUser());
+        model.addAttribute("teachers", lessonService.getAllTeachers());
         model.addAttribute("disciplines", disciplineService.findDisciplineAll());
         return "createLesson";
     }

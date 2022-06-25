@@ -34,12 +34,12 @@
 <div class="container">
     <h1>Добавить занятие</h1>
     <form id="lesson">
-        <div class="mb-3">
-            <label for="group" class="form-label">Выберите группу</label>
-            <select class="form-select" id="group" name="groupId">
-                <option th:each="user : ${users}"
-                        th:value="${user.getId()}" th:text="${user.firstName()} + ' ' + ${user.getLastName()}"
-                        th:selected="${userId.getId()} == ${user.getId()}">
+        <div th:style="${user.getRole().name.equals('ADMIN') ? '' : 'display: none'}" class="mb-3">
+            <label for="teacherId" class="form-label">Выберите преподователя</label>
+            <select class="form-select" id="teacherId" name="teacherId">
+                <option th:each="teacher : ${teachers}"
+                        th:value="${teacher.getTeacherId()}" th:text="${teacher.getName()}"
+                        th:selected="${teacher.getTeacherId()} == ${user.getId()}">
                 </option>
             </select>
         </div>
