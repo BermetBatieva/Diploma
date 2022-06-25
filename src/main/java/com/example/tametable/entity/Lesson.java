@@ -45,6 +45,8 @@ public class Lesson {
 
     String link;
 
+    String link2;
+
     @Enumerated(EnumType.STRING)
     Status status;
 }

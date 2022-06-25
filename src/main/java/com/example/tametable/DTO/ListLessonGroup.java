@@ -30,4 +30,6 @@ public class ListLessonGroup {
 
     private String link;
 
+    private String link2;
+
 }

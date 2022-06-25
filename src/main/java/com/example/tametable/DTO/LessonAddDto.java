@@ -24,4 +24,6 @@ public class LessonAddDto {
     private Integer groupId;
 
     private String link;
+
+    private String link2;
 }
