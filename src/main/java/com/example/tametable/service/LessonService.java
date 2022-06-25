@@ -333,6 +333,5 @@ public class LessonService {
         lesson.setWeekTypeZnamenatel(lessonAddDto.isWeekTypeZnamenatel());
         lesson.setGroup(groupRepository.findById(lessonAddDto.getGroupId()).orElse(null));
         lesson.setLink(lessonAddDto.getLink());
-        lessonRepo.save(lesson);
-    }
+        lessonRepo.save(lesson);}
 }
