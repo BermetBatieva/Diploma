@@ -147,8 +147,8 @@ public class LessonService {
             lesson.setWeekTypeChislitel(lessonAdd.isWeekTypeChislitel());
             lessonRepo.save(lesson);
             return "успешно создан!";
-        }else{
-            if (lessonRepo.
+        }
+        else if (lessonRepo.
           existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(user,lessonAdd.getWeekId()
                   ,lessonAdd.getTimeLessonId(),Status.ACTIVE,true,false, lessonAdd.getGroupId())){
                 Lesson lesson = new Lesson();
@@ -188,8 +188,8 @@ public class LessonService {
                     existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(user,lessonAdd.getWeekId()
                             ,lessonAdd.getTimeLessonId(),Status.ACTIVE,true,true, lessonAdd.getGroupId())){
                return "такой lesson уже существует!";
-            }
         }
+
         return null;
     }
 
