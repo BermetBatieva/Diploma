@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.
                 csrf().and().cors().disable()
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/", "/js/**", "/css/**", "/favicon.*", "/user/registration", "/user/resetPassword", "/user/sendEmail", "/api/users", "/api/users/**", "/verify", "/login**", "/logout**", "/api/**").permitAll()
+                .antMatchers("/resources/**", "/", "/js/**", "/css/**", "/favicon.*", "/user/registration", "/user/resetPassword", "/user/sendEmail", "/api/users", "/api/users/**", "/verify", "/login**", "/logout**", "/api/**","/api/lessons/create-admin").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

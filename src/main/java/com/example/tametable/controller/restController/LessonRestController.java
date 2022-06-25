@@ -1,5 +1,6 @@
 package com.example.tametable.controller.restController;
 
+import com.example.tametable.DTO.LessonAddAdminDto;
 import com.example.tametable.DTO.LessonAddDto;
 import com.example.tametable.service.LessonService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,12 @@ public class LessonRestController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateLesson(@RequestBody LessonAddDto lessonAddDto, @PathVariable(name = "id") Long id) {
         lessonService.updateLesson(id, lessonAddDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/create-admin")
+    public ResponseEntity<String> createLessonAdmin(@RequestBody LessonAddAdminDto dto){
+        lessonService.createLessonFromAdmin(dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
