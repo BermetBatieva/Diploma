@@ -1,9 +1,14 @@
-var min = Number.POSITIVE_INFINITY;
-var max = Number.NEGATIVE_INFINITY;
-var arr;
-
 $(document).ready(function () {
     renderLessons($("#group").val())
+})
+
+$("#lesson").submit(function (e) {
+    e.preventDefault()
+    if (!$("#weekTypeChislitel").is(":checked") && !$("#weekTypeZnamenatel").is(":checked")) {
+        alert("Числитель или знаменатель не могут быть одновременно не выбраны!")
+    } else {
+        createLesson();
+    }
 })
 
 $("#group").change(function () {
@@ -12,15 +17,6 @@ $("#group").change(function () {
 
 $("#week").change(function () {
     renderLessons($("#group").val())
-})
-
-$("#lesson").submit(function (e) {
-    if (!$("#weekTypeChislitel").is(":checked") && !$("#weekTypeZnamenatel").is(":checked")) {
-        alert("Числитель или знаменатель не могут быть одновременно не выбраны!")
-    } else {
-        e.preventDefault()
-        createLesson();
-    }
 })
 
 function createLesson() {
@@ -33,94 +29,36 @@ function createLesson() {
         weekTypeZnamenatel: $("#weekTypeZnamenatel").is(":checked"),
         groupId: parseInt($("#group").val()),
         link: $("#link").val(),
-        link2: $("#link2").val()
+        link2 : $("#link2").val()
     }
+    console.log(formData)
     $.ajax({
-        type: "POST",
+        type: "PUT",
         contentType: "application/json",
-        url: "http://localhost:8080/api/lessons",
+        url: "http://localhost:8080/api/lessons/" + $("#lessonId").val(),
         data: JSON.stringify(formData),
         data_type: "json",
         beforeSend: function (xhr) {
             let token = $("meta[name='_csrf']").attr("content");
             let header = $("meta[name='_csrf_header']").attr("content");
+            console.log(token)
+            console.log(header)
             xhr.setRequestHeader(header, token)
         },
-        success: function (data) {
-            alert(data.responseText)
-        },
-        error: function (data) {
-            alert(data.responseText)
-            window.location = "/teacher/lesson/create"
+        success: function () {
+            window.location.href = "/teacher/lessons"
         }
     })
 }
 
-// function findMinMax(data, min, max) {
-//     let tmp;
-//     for (let i = 0; i < data.length; i++) {
-//         tmp = data[i].numTimeLesson;
-//         if (tmp <= min) {
-//             window.min = tmp
-//         }
-//         if (tmp >= max) {
-//             window.max = tmp
-//         }
-//     }
-// }
-
-// function createArray(data) {
-//     let array = new Array();
-//     // if (i <= data.length - 1) {
-//     //     if (data[i].numTimeLesson - 1 == i) {
-//     //         array.push(data[i])
-//     //     }
-//     // } else {
-//     //     array.push(null)
-//     // }
-//     for (let i = 0; i < data.length; i++) {
-//         let k;
-//         // if (i == 0 &&) {
-//         //     j = data[i].numTimeLesson - 1;
-//         // } else {
-//         //     j = data[i - 1].numTimeLesson - 1;
-//         // }
-//         if (i == 0 && data[i].numTimeLesson - 1 != 0) {
-//             k = 0
-//         } else if (i == 0) {
-//             k = data[i].numTimeLesson - 1;
-//         } else {
-//             k = data[i - 1].numTimeLesson - 1;
-//         }
-//         let length
-//         if (data[i].numTimeLesson - 1 == 0) {
-//             length = data[i].numTimeLesson
-//         } else if (i == data.length) {
-//             le
-//         }
-//         else if () {
-//             length = data[i].numTimeLesson - 1
-//         }
-//         for (let j = k; j < length; j++) {
-//             if (data[i].numTimeLesson - 1 == j) {
-//                 array.push(data[i])
-//             } else if (data[i].numTimeLesson - 1 == j + 1) {
-//                 array.push(data[i])
-//             } else {
-//                 array.push(null)
-//             }
-//         }
-//     }
-//     console.log(array)
-// }
-
-
 function renderLessons(id) {
     $.get("http://localhost:8080/api/all-lesson-by-week-groupId/" + $("#week").val() + "/" + id, function (data) {
+        let output = data
+        console.log(data)
+        console.log(output)
         let lessons = ''
         let typeLesson = ''
         let typeWeek = ''
-
         $.each(data, function (index, lesson) {
             lessons += `
                     <tr>

@@ -17,7 +17,7 @@ public class LessonRestController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createLesson(@RequestBody LessonAddDto lessonAddDto) {
         String msg = lessonService.createLesson(lessonAddDto);
-        return new ResponseEntity<>(msg, HttpStatus.CREATED);
+        return new ResponseEntity<>(msg, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

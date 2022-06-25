@@ -55,4 +55,10 @@ public class TeacherController {
         model.addAttribute("user", userPrincipal.getUser());
         return "changeLesson";
     }
+
+    @GetMapping("/lesson/delete/{id}")
+    public String deleteLesson(@PathVariable Long id) {
+        lessonService.delete(id);
+        return "redirect:/teacher/lessons";
+    }
 }

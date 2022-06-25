@@ -31,6 +31,8 @@ function renderLessons(url) {
         let lessons = ''
         let week = ''
         let typeLesson = ''
+        let link1 = ''
+        let link2 = ''
         $.each(data, function (index, lesson) {
             if (lesson.weekTypeZnamenatel && lesson.weekTypeChislitel) {
                 week = 'Каждую неделю'
@@ -51,9 +53,14 @@ function renderLessons(url) {
                         <td>${lesson.group}</td>
                         <td>${typeLesson}</td>
                         <td>${week}</td>
-                        <td class="text-center" style="width: 300px"><a href="${lesson.link}"><img width="38" src="/images/video-call.png"></a></td>
-                        <td><a href="/teacher/lesson/update/${lesson.idLesson}" class="change btn btn-warning">Изменить</a></td>
-                        <td><a href="/api/lessons/${lesson.idLesson}" class="change btn btn-warning">Изменить</a></td>
+                        <td class="text-center" style="width: 300px">
+                            <a href="${lesson.link}"><img width="38" src="/images/video-call.png"></a>
+                            <a href="${lesson.link2}"><img width="38" src="/images/whats-app.png"></a>
+                        </td>
+                        <td>
+                            <a href="/teacher/lesson/update/${lesson.idLesson}" class="change btn btn-warning">Изменить</a>
+                            <a href="/teacher/lesson/delete/${lesson.idLesson}" class="change btn btn-warning">Удалить</a>
+                        </td>
                     </tr>
                 `
         })
