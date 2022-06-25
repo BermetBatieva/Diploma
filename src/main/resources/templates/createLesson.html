@@ -35,6 +35,15 @@
     <h1>Добавить занятие</h1>
     <form id="lesson">
         <div class="mb-3">
+            <label for="group" class="form-label">Выберите группу</label>
+            <select class="form-select" id="group" name="groupId">
+                <option th:each="user : ${users}"
+                        th:value="${user.getId()}" th:text="${user.firstName()} + ' ' + ${user.getLastName()}"
+                        th:selected="${userId.getId()} == ${user.getId()}">
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="discipline" class="form-label">Выберите дисциплину</label>
             <select class="form-select" id="discipline" name="disciplineId" required>
                 <option th:each="discipline : ${disciplines}"
