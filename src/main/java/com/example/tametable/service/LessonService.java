@@ -130,7 +130,7 @@ public class LessonService {
 //    }
 
 
-    public void createLesson(LessonAddDto lessonAdd) {
+    public void createLesson(LessonAddDto lessonAdd) throws Exception {
         User user = userService.getUser();
         if (!lessonRepo.existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndGroup_Id(user,lessonAdd.getWeekId(),lessonAdd.getTimeLessonId(),Status.ACTIVE,lessonAdd.getGroupId())){
             Lesson lesson = new Lesson();
@@ -179,6 +179,10 @@ public class LessonService {
                 lesson.setLink2(lessonAdd.getLink2());
                 lesson.setWeekTypeChislitel(lessonAdd.isWeekTypeChislitel());
                 lessonRepo.save(lesson);
+            }else if (lessonRepo.
+                    existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(user,lessonAdd.getWeekId()
+                            ,lessonAdd.getTimeLessonId(),Status.ACTIVE,true,true, lessonAdd.getGroupId())){
+                throw new Exception("lesson is exist");
             }
         }
     }
