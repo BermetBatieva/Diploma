@@ -26,5 +26,7 @@ public class ListLessonTeacher {
 
     private String link;
 
+    private String link2;
+
 
 }
