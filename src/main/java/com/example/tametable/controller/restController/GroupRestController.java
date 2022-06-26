@@ -44,8 +44,13 @@ public class GroupRestController {
     }
 
     @GetMapping("/all-lessons-by-week/{weekId}")
-    public List<ListLessonGroup> getAllLessonsByWeekId(@PathVariable Integer weekId) {
-        return lessonService.getAllLessonsByWeekId(weekId);
+    public List<ListLessonGroup> getAllLessonsByWeekId(@AuthenticationPrincipal UserPrincipal userPrincipal, @PathVariable Integer weekId) {
+        if (userPrincipal.getUser().getRole().name().equals("ADMIN")) {
+            return lessonService.getAllLessonsByWeekId(weekId);
+        } else {
+            return lessonService.getAllLessonsByUserGroupIdAndWeekId(userPrincipal.getUser(), weekId);
+        }
+
     }
 
     @GetMapping("/all-lesson-by-week-groupId/{weekId}/{groupId}")

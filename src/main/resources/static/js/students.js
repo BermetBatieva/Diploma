@@ -27,7 +27,7 @@ function renderUsers(data) {
 }
 
 function getUsers() {
-    $.get("http://localhost:8080/api/users?role=STUDENT", function (data) {
+    $.get("https://lessons-api-university.herokuapp.com/api/users?role=STUDENT", function (data) {
         renderUsers(data)
     })
 }
@@ -48,7 +48,7 @@ $("#users").on("click", function (event) {
 function deleteUser(id) {
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:8080/api/users/delete/" + id,
+        url: "https://lessons-api-university.herokuapp.com/api/users/delete/" + id,
         beforeSend: function (xhr) {
             let token = $("meta[name='_csrf']").attr("content");
             let header = $("meta[name='_csrf_header']").attr("content");
@@ -63,7 +63,7 @@ function deleteUser(id) {
 function activateUser(id) {
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8080/api/users/activate/" + id,
+        url: "https://lessons-api-university.herokuapp.com/api/users/activate/" + id,
         beforeSend: function (xhr) {
             let token = $("meta[name='_csrf']").attr("content");
             let header = $("meta[name='_csrf_header']").attr("content");
@@ -78,7 +78,7 @@ function activateUser(id) {
 function deactivateUser(id) {
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8080/api/users/deactivate/" + id,
+        url: "https://lessons-api-university.herokuapp.com/api/users/deactivate/" + id,
         beforeSend: function (xhr) {
             let token = $("meta[name='_csrf']").attr("content");
             let header = $("meta[name='_csrf_header']").attr("content");

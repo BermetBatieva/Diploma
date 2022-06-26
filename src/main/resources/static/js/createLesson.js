@@ -39,7 +39,7 @@ function createLesson() {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "http://localhost:8080/api/lessons",
+        url: "https://lessons-api-university.herokuapp.com/api/lessons",
         data: JSON.stringify(formData),
         data_type: "json",
         beforeSend: function (xhr) {
@@ -52,7 +52,7 @@ function createLesson() {
         },
         error: function (data) {
             alert(data.responseText)
-            window.location = "/teacher/lesson/create"
+            window.location.href = "https://lessons-api-university.herokuapp.com/teacher/lesson/create"
         }
     })
 }
@@ -117,7 +117,7 @@ function createLesson() {
 
 
 function renderLessons(id) {
-    $.get("http://localhost:8080/api/all-lesson-by-week-groupId/" + $("#week").val() + "/" + id, function (data) {
+    $.get("https://lessons-api-university.herokuapp.com/api/all-lesson-by-week-groupId/" + $("#week").val() + "/" + id, function (data) {
         let lessons = ''
         let typeLesson = ''
         let typeWeek = ''

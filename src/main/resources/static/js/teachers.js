@@ -14,12 +14,11 @@ function renderUsers(data) {
                 <td scope="row">${user.faculty.name}</td>
                 <td scope="row">${user.verifyUser.isActive ? 'Активирован' : 'Неактивирован'}</td>
                 <td scope="row">${user.isEnabled ?
-                    '<a data-id=' + user.id + ' class="deactivate btn btn-danger">Деактивировать</a>' :
-                    '<a data-id=' + user.id + ' class="activate btn btn-success">Активировать</a>'}
+            '<a data-id=' + user.id + ' class="deactivate btn btn-danger">Деактивировать</a>' :
+            '<a data-id=' + user.id + ' class="activate btn btn-success">Активировать</a>'}
                     <a data-id=${user.id} class="delete btn btn-danger">Удалить</a>
                     <a href="/user/change/${user.id}" class="change btn btn-warning">Изменить</a>
                 </td>
-                
             </tr>
         `.trim()
         document.querySelector("#users tbody").innerHTML = users
@@ -27,7 +26,7 @@ function renderUsers(data) {
 }
 
 function getUsers() {
-    $.get("http://localhost:8080/api/users?role=TEACHER", function (data) {
+    $.get("https://lessons-api-university.herokuapp.com/api/users?role=TEACHER", function (data) {
         renderUsers(data)
     })
 }
@@ -48,7 +47,7 @@ $("#users").on("click", function (event) {
 function deleteUser(id) {
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:8080/api/users/delete/" + id,
+        url: "https://lessons-api-university.herokuapp.com/api/users/delete/" + id,
         beforeSend: function (xhr) {
             let token = $("meta[name='_csrf']").attr("content");
             let header = $("meta[name='_csrf_header']").attr("content");
@@ -63,7 +62,7 @@ function deleteUser(id) {
 function activateUser(id) {
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8080/api/users/activate/" + id,
+        url: "https://lessons-api-university.herokuapp.com/api/users/activate/" + id,
         beforeSend: function (xhr) {
             let token = $("meta[name='_csrf']").attr("content");
             let header = $("meta[name='_csrf_header']").attr("content");
@@ -78,7 +77,7 @@ function activateUser(id) {
 function deactivateUser(id) {
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8080/api/users/deactivate/" + id,
+        url: "https://lessons-api-university.herokuapp.com/api/users/deactivate/" + id,
         beforeSend: function (xhr) {
             let token = $("meta[name='_csrf']").attr("content");
             let header = $("meta[name='_csrf_header']").attr("content");

@@ -1,15 +1,15 @@
 let url = ""
 $(document).ready(function () {
     currentDay()
-    url = "http://localhost:8080/api/all-lessons-by-week/" + $(".active").data("id")
+    url = "https://lessons-api-university.herokuapp.com/api/all-lessons-by-week/" + $(".active").data("id")
     renderLessons(url)
 })
 
 $("#groups").change(function () {
     if ($("#groups").val() == 'all') {
-        url = "http://localhost:8080/api/all-lessons-by-week/" + $(".active").data("id")
+        url = "https://lessons-api-university.herokuapp.com/api/all-lessons-by-week/" + $(".active").data("id")
     } else {
-        url = "http://localhost:8080/api/all-lesson-by-week-groupId/" + $(".active").data("id") + "/" + $("#groups").val()
+        url = "https://lessons-api-university.herokuapp.com/api/all-lesson-by-week-groupId/" + $(".active").data("id") + "/" + $("#groups").val()
     }
     renderLessons(url)
 })
@@ -73,9 +73,9 @@ $("#weekDays .week-id").on("click", function (event) {
     $(".active").removeClass("active")
     $("#weekDays").find("[data-id='" + id + "']").addClass("active")
     if ($("#groups").val() == 'all') {
-        url = "http://localhost:8080/api/all-lessons-by-week/" + id
+        url = "https://lessons-api-university.herokuapp.com/api/all-lessons-by-week/" + id
     } else {
-        url = "http://localhost:8080/api/all-lesson-by-week-groupId/" + id + "/" + $("#groups").val()
+        url = "https://lessons-api-university.herokuapp.com/api/all-lesson-by-week-groupId/" + id + "/" + $("#groups").val()
     }
 
     renderLessons(url)

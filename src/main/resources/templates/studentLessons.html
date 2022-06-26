@@ -77,7 +77,7 @@
     let url = ""
     $(document).ready(function () {
         currentDay()
-        url = "http://localhost:8080/api/all-lesson-by-week-groupId/" + $(".active").data("id") + "/" + groupId
+        url = "https://lessons-api-university.herokuapp.com/api/all-lesson-by-week-groupId/" + $(".active").data("id") + "/" + groupId
         renderLessons(url)
     })
 
@@ -97,7 +97,7 @@
         let id = $(event.target).data("id");
         $(".active").removeClass("active")
         $("#weekDays").find("[data-id='" + id + "']").addClass("active")
-        url = "http://localhost:8080/api/all-lesson-by-week-groupId/" + id + "/" + groupId
+        url = "https://lessons-api-university.herokuapp.com/api/all-lesson-by-week-groupId/" + id + "/" + groupId
         renderLessons(url)
     })
 
@@ -133,6 +133,5 @@
             document.querySelector("#lessons tbody").innerHTML = lessons
         })
     }
-
 </script>
 </html>

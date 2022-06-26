@@ -3,7 +3,7 @@ $(document).ready(function () {
 })
 
 function getGroups() {
-    $.get("http://localhost:8080/api/groups", function (data) {
+    $.get("https://lessons-api-university.herokuapp.com/api/groups", function (data) {
         renderGroups(data)
     })
 }
@@ -28,7 +28,7 @@ function renderGroups(data) {
 function deleteGroup(id) {
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:8080/api/groups/" + id,
+        url: window.location.hostname + "/api/groups/" + id,
         beforeSend: function (xhr) {
             let token = $("meta[name='_csrf']").attr("content");
             let header = $("meta[name='_csrf_header']").attr("content");

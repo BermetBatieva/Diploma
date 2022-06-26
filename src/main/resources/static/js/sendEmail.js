@@ -10,7 +10,7 @@ function sendEmail() {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "http://localhost:8080/api/users/email?email=" + formData.email,
+        url: "https://lessons-api-university.herokuapp.com/api/users/email?email=" + formData.email,
         data: JSON.stringify(formData),
         data_type: "json",
         beforeSend: function (xhr) {
@@ -20,6 +20,6 @@ function sendEmail() {
         }
     }).done(function () {
         alert("На вашу почту была отправлена ссылка для восстоновления пароля")
-        window.location.href = "http://localhost:8080/login"
+        window.location.href = "/login"
     })
 }

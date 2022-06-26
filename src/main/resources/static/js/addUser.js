@@ -34,7 +34,7 @@ function addUser() {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "http://localhost:8080/api/users",
+        url:  "https://lessons-api-university.herokuapp.com/api/users",
         data: JSON.stringify(formData),
         data_type: "json",
         beforeSend: function (xhr) {

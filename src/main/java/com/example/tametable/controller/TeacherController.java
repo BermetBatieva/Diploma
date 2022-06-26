@@ -29,7 +29,12 @@ public class TeacherController {
     @GetMapping("/lessons")
     public String getLessons(Model model, @AuthenticationPrincipal UserPrincipal userPrincipal) {
         model.addAttribute("user", userPrincipal.getUser());
-        Set<Group> groups = lessonService.findAllByUser(userPrincipal.getUser()).stream().map(Lesson::getGroup).collect(Collectors.toSet());
+        Set<Group> groups;
+        if (userPrincipal.getUser().getRole().name().equals("ADMIN")) {
+            groups = lessonService.getLessons().stream().map(Lesson::getGroup).collect(Collectors.toSet());
+        } else {
+            groups = lessonService.findAllByUser(userPrincipal.getUser()).stream().map(Lesson::getGroup).collect(Collectors.toSet());
+        }
         model.addAttribute("groups", groups);
         model.addAttribute("permission", Permission.ACTION_LESSONS);
         return "lessons";

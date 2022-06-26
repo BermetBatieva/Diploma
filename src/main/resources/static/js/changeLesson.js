@@ -35,7 +35,7 @@ function createLesson() {
     $.ajax({
         type: "PUT",
         contentType: "application/json",
-        url: "http://localhost:8080/api/lessons/" + $("#lessonId").val(),
+        url: "https://lessons-api-university.herokuapp.com/api/lessons/" + $("#lessonId").val(),
         data: JSON.stringify(formData),
         data_type: "json",
         beforeSend: function (xhr) {
@@ -52,7 +52,7 @@ function createLesson() {
 }
 
 function renderLessons(id) {
-    $.get("http://localhost:8080/api/all-lesson-by-week-groupId/" + $("#week").val() + "/" + id, function (data) {
+    $.get("https://lessons-api-university.herokuapp.com/api/all-lesson-by-week-groupId/" + $("#week").val() + "/" + id, function (data) {
         let output = data
         console.log(data)
         console.log(output)

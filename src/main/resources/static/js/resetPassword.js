@@ -15,7 +15,7 @@ function resetPassword() {
     $.ajax({
         type: "PUT",
         contentType: "application/json",
-        url: "http://localhost:8080/api/users/resetPassword",
+        url: "https://lessons-api-university.herokuapp.com/api/users/resetPassword",
         data: JSON.stringify(formData),
         data_type: "json",
         beforeSend: function (xhr) {
@@ -25,7 +25,7 @@ function resetPassword() {
         }
     }).done(function () {
         alert("Пароль был изменен!")
-        window.location.href = "http://localhost:8080/login"
+        window.location.href = "/login"
     })
 
 
