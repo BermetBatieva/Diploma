@@ -67,7 +67,7 @@ public class VerifyUserServiceImpl implements VerifyUserService {
             content = content.replace("[[lastName]]", user.getLastName());
             content = content.replace("[[patronymic]]", user.getPatronymic());
 
-            String verifyURL = "http://localhost:8080/user/resetPassword?token=" + user.getVerifyUser().getToken();
+            String verifyURL = "https://lessons-api-university.herokuapp.com/user/resetPassword?token=" + user.getVerifyUser().getToken();
 
             content = content.replace("[[URL]]", verifyURL);
 
