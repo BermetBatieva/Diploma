@@ -454,4 +454,9 @@ public class LessonService {
 
         return listTeachers;
     }
+
+    public List<Lesson> getLessons(){
+        return lessonRepo.findByStatus(Status.ACTIVE);
+
+    }
 }

@@ -32,5 +32,6 @@ public interface LessonRepo extends CrudRepository<Lesson, Long> {
     List<Lesson> findAllByUser(User user);
 
 
+    List<Lesson> findByStatus(Status status);
 
 }
