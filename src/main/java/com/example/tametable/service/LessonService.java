@@ -1,9 +1,6 @@
 package com.example.tametable.service;
 
-import com.example.tametable.DTO.LessonAddAdminDto;
-import com.example.tametable.DTO.LessonAddDto;
-import com.example.tametable.DTO.ListLessonGroup;
-import com.example.tametable.DTO.ListLessonTeacher;
+import com.example.tametable.DTO.*;
 import com.example.tametable.entity.Lesson;
 import com.example.tametable.entity.Role;
 import com.example.tametable.entity.User;
@@ -379,7 +376,7 @@ public class LessonService {
 
         return "";
     }
-    public String createLessonFromAdmin(LessonAddAdminDto lessonAdd) {
+    public String createLessonFromAdmin(LessonAddDto lessonAdd) {
         if (!lessonRepo.existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndGroup_Id(userRepository.findById(lessonAdd.getTeacherId()).orElse(null), lessonAdd.getWeekId(), lessonAdd.getTimeLessonId(), Status.ACTIVE, lessonAdd.getGroupId())) {
             Lesson lesson = new Lesson();
             lesson.setUser(userRepository.findById(lessonAdd.getTeacherId()).orElse(null));
@@ -439,4 +436,9 @@ public class LessonService {
 
         return "";
     }
+
+//    public List<ListTeacher> getAllTeachers(){
+//        List<User> users = userRepository.findAllByRole(Role.TEACHER);
+//
+//    }
 }

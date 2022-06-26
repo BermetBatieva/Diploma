@@ -28,7 +28,7 @@ public class LessonRestController {
     }
 
     @PostMapping("/create-admin")
-    public ResponseEntity<String> createLessonAdmin(@RequestBody LessonAddAdminDto dto){
+    public ResponseEntity<String> createLessonAdmin(@RequestBody LessonAddDto dto){
         lessonService.createLessonFromAdmin(dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }

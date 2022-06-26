@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class LessonAddDto {
 
+    private Integer teacherId;
+
     private Integer disciplineId;
 
     private Integer weekId;
