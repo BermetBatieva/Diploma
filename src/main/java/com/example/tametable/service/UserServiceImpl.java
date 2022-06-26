@@ -61,6 +61,7 @@ public class UserServiceImpl implements UserService {
                 .role(Role.TEACHER)
                 .build();
         userRepository.save(user);
+        verifyUserService.save(user);
     }
 
     @Override
