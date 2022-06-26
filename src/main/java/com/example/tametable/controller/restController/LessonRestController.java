@@ -1,13 +1,15 @@
 package com.example.tametable.controller.restController;
 
-import com.example.tametable.DTO.LessonAddAdminDto;
 import com.example.tametable.DTO.LessonAddDto;
+import com.example.tametable.DTO.ListTeacher;
 import com.example.tametable.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/lessons")
@@ -31,5 +33,9 @@ public class LessonRestController {
     public ResponseEntity<String> createLessonAdmin(@RequestBody LessonAddDto dto){
         lessonService.createLessonFromAdmin(dto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("all-teachers")
+    public List<ListTeacher> getTeachers(){
+        return lessonService.getAllTeachers();
     }
 }

@@ -437,8 +437,19 @@ public class LessonService {
         return "";
     }
 
-//    public List<ListTeacher> getAllTeachers(){
-//        List<User> users = userRepository.findAllByRole(Role.TEACHER);
-//
-//    }
+    public List<ListTeacher> getAllTeachers(){
+        List<User> users = userRepository.findAllByRole(Role.TEACHER);
+
+        List<ListTeacher> listTeachers = new ArrayList<>();
+        for(User user : users){
+            ListTeacher model = new ListTeacher();
+
+            model.setName(user.getFirstName()+ " " +user.getLastName());
+            model.setTeacherId(user.getId());
+
+            listTeachers.add(model);
+        }
+
+        return listTeachers;
+    }
 }
