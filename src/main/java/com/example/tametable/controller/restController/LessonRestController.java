@@ -37,11 +37,6 @@ public class LessonRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/create-admin")
-    public ResponseEntity<String> createLessonAdmin(@RequestBody LessonAddDto dto){
-        lessonService.createLessonFromAdmin(dto);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
     @GetMapping("all-teachers")
     public List<ListTeacher> getTeachers(){
         return lessonService.getAllTeachers();
