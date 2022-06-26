@@ -457,6 +457,33 @@ public class LessonService {
 
     public List<Lesson> getLessons(){
         return lessonRepo.findByStatus(Status.ACTIVE);
+    }
 
+
+    //в user get principal пихнешь
+    public  List<ListLessonGroup> getAllLessonsByUserGroupIdAndWeekId(User user,Integer groupId,Integer weekId){
+        List<com.example.tametable.DTO.ListLessonGroup> listModel = new ArrayList<>();
+        List<Lesson> lessonList = lessonRepo.
+                findByUserAndStatusAndWeekDay_IdAndGroup_Id(user,Status.ACTIVE,weekId,groupId).stream().filter(lesson -> lesson.isWeekTypeZnamenatel() && lesson.isWeekTypeChislitel() ||
+                        !lesson.isWeekTypeZnamenatel() && lesson.isWeekTypeChislitel() ||
+                        !lesson.isWeekTypeChislitel() && lesson.isWeekTypeZnamenatel()).collect(Collectors.toList());
+        for (Lesson lesson : lessonList){
+            com.example.tametable.DTO.ListLessonGroup model = new com.example.tametable.DTO.ListLessonGroup();
+            model.setIdLesson(lesson.getId());
+            model.setNumTimeLesson(lesson.getTimeLesson().getNumberLesson());
+            model.setTimeLesson(lesson.getTimeLesson().getTime());
+            model.setDiscipline(lesson.getDiscipline().getName());
+            model.setGroup(lesson.getGroup().getName());
+            model.setLink(lesson.getLink());
+            model.setLink2(lesson.getLink2());
+            model.setWeekDay(lesson.getWeekDay().getName());
+            model.setWeekTypeChislitel(lesson.isWeekTypeChislitel());
+            model.setWeekTypeZnamenatel(lesson.isWeekTypeZnamenatel());
+            model.setIsLektion(lesson.isLection());
+            model.setTeacher(lesson.getUser().getFirstName() + " " + lesson.getUser().getLastName());
+            listModel.add(model);
+
+        }
+        return listModel;
     }
 }
