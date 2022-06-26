@@ -461,10 +461,10 @@ public class LessonService {
 
 
     //в user get principal пихнешь
-    public  List<ListLessonGroup> getAllLessonsByUserGroupIdAndWeekId(User user,Integer groupId,Integer weekId){
+    public  List<ListLessonGroup> getAllLessonsByUserGroupIdAndWeekId(User user,Integer weekId){
         List<com.example.tametable.DTO.ListLessonGroup> listModel = new ArrayList<>();
         List<Lesson> lessonList = lessonRepo.
-                findByUserAndStatusAndWeekDay_IdAndGroup_Id(user,Status.ACTIVE,weekId,groupId).stream().filter(lesson -> lesson.isWeekTypeZnamenatel() && lesson.isWeekTypeChislitel() ||
+                findByUserAndStatusAndWeekDay_Id(user,Status.ACTIVE,weekId).stream().filter(lesson -> lesson.isWeekTypeZnamenatel() && lesson.isWeekTypeChislitel() ||
                         !lesson.isWeekTypeZnamenatel() && lesson.isWeekTypeChislitel() ||
                         !lesson.isWeekTypeChislitel() && lesson.isWeekTypeZnamenatel()).collect(Collectors.toList());
         for (Lesson lesson : lessonList){
