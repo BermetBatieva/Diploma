@@ -322,55 +322,56 @@ public class LessonService {
     public String updateLesson(Long id, LessonAddDto lessonAddDto) {
         Lesson lesson = lessonRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Doesn't find with id " + id));
-        if (lessonRepo.
-                existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(userService.getUser(), lessonAddDto.getWeekId()
-                        , lessonAddDto.getTimeLessonId(), Status.ACTIVE, true, false, lessonAddDto.getGroupId())) {
-            if (lessonAddDto.isWeekTypeChislitel()) {
-                return "числитель уже существует!";
-            }
-            lesson.setTimeLesson(timeLessonRepo.findById(lessonAddDto.getTimeLessonId()).orElse(null));
-            lesson.setLection(lessonAddDto.isLecture());
-            lesson.setLink2(lessonAddDto.getLink2());
-//                lesson.setWeekTypeChislitel(lessonAddDto.isWeekTypeChislitel());
-            lesson.setWeekTypeZnamenatel(lessonAddDto.isWeekTypeZnamenatel());
-            lesson.setGroup(groupRepository.findById(lessonAddDto.getGroupId()).orElse(null));
-            lesson.setLink(lessonAddDto.getLink());
-            lessonRepo.save(lesson);
-            return "успешно изменен!";
-        } else if (lessonRepo.
-                existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(userService.getUser(), lessonAddDto.getWeekId()
-                        , lessonAddDto.getTimeLessonId(), Status.ACTIVE, false, true, lessonAddDto.getGroupId())) {
-            if (lessonAddDto.isWeekTypeZnamenatel()) {
-                return "знаменатель уже существует!";
-            }
-            lesson.setDiscipline(disciplineRepository.findById(lessonAddDto.getDisciplineId()).orElse(null));
-            lesson.setWeekDay(weekDayRepository.findById(lessonAddDto.getWeekId()).orElse(null));
-            lesson.setTimeLesson(timeLessonRepo.findById(lessonAddDto.getTimeLessonId()).orElse(null));
-            lesson.setLection(lessonAddDto.isLecture());
-            lesson.setLink2(lessonAddDto.getLink2());
-            lesson.setWeekTypeChislitel(lessonAddDto.isWeekTypeChislitel());
-//            lesson.setWeekTypeZnamenatel(lessonAddDto.isWeekTypeZnamenatel());
-            lesson.setGroup(groupRepository.findById(lessonAddDto.getGroupId()).orElse(null));
-            lesson.setLink(lessonAddDto.getLink());
-            lessonRepo.save(lesson);
-            return "успешно изменен!";
-        } else if (lessonRepo.
-                existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(userService.getUser(), lessonAddDto.getWeekId()
-                        , lessonAddDto.getTimeLessonId(), Status.ACTIVE, true, true, lessonAddDto.getGroupId())) {
-            lesson.setDiscipline(disciplineRepository.findById(lessonAddDto.getDisciplineId()).orElse(null));
-            lesson.setWeekDay(weekDayRepository.findById(lessonAddDto.getWeekId()).orElse(null));
-            lesson.setTimeLesson(timeLessonRepo.findById(lessonAddDto.getTimeLessonId()).orElse(null));
-            lesson.setLection(lessonAddDto.isLecture());
-            lesson.setLink2(lessonAddDto.getLink2());
-            lesson.setWeekTypeChislitel(lessonAddDto.isWeekTypeChislitel());
-            lesson.setWeekTypeZnamenatel(lessonAddDto.isWeekTypeZnamenatel());
-            lesson.setGroup(groupRepository.findById(lessonAddDto.getGroupId()).orElse(null));
-            lesson.setLink(lessonAddDto.getLink());
-            lessonRepo.save(lesson);
-            return "Успешно изменен!";
-        }
+//        if (lessonRepo.
+//                existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(userService.getUser(), lessonAddDto.getWeekId()
+//                        , lessonAddDto.getTimeLessonId(), Status.ACTIVE, true, false, lessonAddDto.getGroupId())) {
+//            if (lessonAddDto.isWeekTypeChislitel()) {
+//                return "числитель уже существует!";
+//            }
 
-        return "";
+        lesson.setTimeLesson(timeLessonRepo.findById(lessonAddDto.getTimeLessonId()).orElse(null));
+        lesson.setLection(lessonAddDto.isLecture());
+        lesson.setLink2(lessonAddDto.getLink2());
+        lesson.setWeekTypeChislitel(lessonAddDto.isWeekTypeChislitel());
+        lesson.setWeekTypeZnamenatel(lessonAddDto.isWeekTypeZnamenatel());
+        lesson.setGroup(groupRepository.findById(lessonAddDto.getGroupId()).orElse(null));
+        lesson.setLink(lessonAddDto.getLink());
+        lessonRepo.save(lesson);
+            return "успешно изменен!";
+//        } else if (lessonRepo.
+//                existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(userService.getUser(), lessonAddDto.getWeekId()
+//                        , lessonAddDto.getTimeLessonId(), Status.ACTIVE, false, true, lessonAddDto.getGroupId())) {
+//            if (lessonAddDto.isWeekTypeZnamenatel()) {
+//                return "знаменатель уже существует!";
+//            }
+//            lesson.setDiscipline(disciplineRepository.findById(lessonAddDto.getDisciplineId()).orElse(null));
+//            lesson.setWeekDay(weekDayRepository.findById(lessonAddDto.getWeekId()).orElse(null));
+//            lesson.setTimeLesson(timeLessonRepo.findById(lessonAddDto.getTimeLessonId()).orElse(null));
+//            lesson.setLection(lessonAddDto.isLecture());
+//            lesson.setLink2(lessonAddDto.getLink2());
+//            lesson.setWeekTypeChislitel(lessonAddDto.isWeekTypeChislitel());
+////            lesson.setWeekTypeZnamenatel(lessonAddDto.isWeekTypeZnamenatel());
+//            lesson.setGroup(groupRepository.findById(lessonAddDto.getGroupId()).orElse(null));
+//            lesson.setLink(lessonAddDto.getLink());
+//            lessonRepo.save(lesson);
+//            return "успешно изменен!";
+//        } else if (lessonRepo.
+//                existsByUserAndWeekDay_IdAndTimeLesson_IdAndStatusAndWeekTypeChislitelAndAndWeekTypeZnamenatelAndGroup_Id(userService.getUser(), lessonAddDto.getWeekId()
+//                        , lessonAddDto.getTimeLessonId(), Status.ACTIVE, true, true, lessonAddDto.getGroupId())) {
+//            lesson.setDiscipline(disciplineRepository.findById(lessonAddDto.getDisciplineId()).orElse(null));
+//            lesson.setWeekDay(weekDayRepository.findById(lessonAddDto.getWeekId()).orElse(null));
+//            lesson.setTimeLesson(timeLessonRepo.findById(lessonAddDto.getTimeLessonId()).orElse(null));
+//            lesson.setLection(lessonAddDto.isLecture());
+//            lesson.setLink2(lessonAddDto.getLink2());
+//            lesson.setWeekTypeChislitel(lessonAddDto.isWeekTypeChislitel());
+//            lesson.setWeekTypeZnamenatel(lessonAddDto.isWeekTypeZnamenatel());
+//            lesson.setGroup(groupRepository.findById(lessonAddDto.getGroupId()).orElse(null));
+//            lesson.setLink(lessonAddDto.getLink());
+//            lessonRepo.save(lesson);
+//            return "Успешно изменен!";
+//        }
+//
+//        return "";
     }
 
     public String createLessonFromAdmin(LessonAddDto lessonAdd) {
@@ -450,19 +451,19 @@ public class LessonService {
         return listTeachers;
     }
 
-    public List<Lesson> getLessons(){
+    public List<Lesson> getLessons() {
         return lessonRepo.findByStatus(Status.ACTIVE);
     }
 
 
     //в user get principal пихнешь
-    public  List<ListLessonGroup> getAllLessonsByUserGroupIdAndWeekId(User user,Integer weekId){
+    public List<ListLessonGroup> getAllLessonsByUserGroupIdAndWeekId(User user, Integer weekId) {
         List<com.example.tametable.DTO.ListLessonGroup> listModel = new ArrayList<>();
         List<Lesson> lessonList = lessonRepo.
-                findByUserAndStatusAndWeekDay_Id(user,Status.ACTIVE,weekId).stream().filter(lesson -> lesson.isWeekTypeZnamenatel() && lesson.isWeekTypeChislitel() ||
-                        !lesson.isWeekTypeZnamenatel() && lesson.isWeekTypeChislitel() ||
-                        !lesson.isWeekTypeChislitel() && lesson.isWeekTypeZnamenatel()).collect(Collectors.toList());
-        for (Lesson lesson : lessonList){
+                findByUserAndStatusAndWeekDay_Id(user, Status.ACTIVE, weekId).stream().filter(lesson -> lesson.isWeekTypeZnamenatel() && lesson.isWeekTypeChislitel() ||
+                !lesson.isWeekTypeZnamenatel() && lesson.isWeekTypeChislitel() ||
+                !lesson.isWeekTypeChislitel() && lesson.isWeekTypeZnamenatel()).collect(Collectors.toList());
+        for (Lesson lesson : lessonList) {
             com.example.tametable.DTO.ListLessonGroup model = new com.example.tametable.DTO.ListLessonGroup();
             model.setIdLesson(lesson.getId());
             model.setNumTimeLesson(lesson.getTimeLesson().getNumberLesson());
