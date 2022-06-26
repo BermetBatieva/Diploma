@@ -31,9 +31,9 @@ public class LessonRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateLesson(@RequestBody LessonAddDto lessonAddDto, @PathVariable(name = "id") Long id) {
-        lessonService.updateLesson(id, lessonAddDto);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> updateLesson(@RequestBody LessonAddDto lessonAddDto, @PathVariable(name = "id") Long id) {
+        String msg = lessonService.updateLesson(id, lessonAddDto);
+        return new ResponseEntity<>(msg, HttpStatus.OK);
     }
 
     @GetMapping("all-teachers")
