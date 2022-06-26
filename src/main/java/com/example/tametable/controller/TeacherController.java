@@ -57,6 +57,7 @@ public class TeacherController {
         model.addAttribute("weekDays", weekDayService.findWeekDayAll());
         model.addAttribute("timeLessons", timeLessonsService.findExerciseTimeAll());
         model.addAttribute("groups", groupService.findAllGroups());
+        model.addAttribute("teachers", lessonService.getAllTeachers());
         model.addAttribute("disciplines", disciplineService.findDisciplineAll());
         model.addAttribute("user", userPrincipal.getUser());
         return "changeLesson";

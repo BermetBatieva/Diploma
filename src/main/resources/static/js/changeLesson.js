@@ -29,7 +29,8 @@ function createLesson() {
         weekTypeZnamenatel: $("#weekTypeZnamenatel").is(":checked"),
         groupId: parseInt($("#group").val()),
         link: $("#link").val(),
-        link2 : $("#link2").val()
+        link2 : $("#link2").val(),
+        teacherId: $("#teacherId").val()
     }
     console.log(formData)
     $.ajax({
@@ -47,6 +48,9 @@ function createLesson() {
         },
         success: function () {
             window.location.href = "/teacher/lessons"
+        },
+        error: function (data) {
+            alert(data.responseText)
         }
     })
 }

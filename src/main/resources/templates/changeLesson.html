@@ -34,6 +34,15 @@
 <div class="container">
     <h1>Изменить занятие</h1>
     <form id="lesson">
+        <div th:style="${user.getRole().name.equals('ADMIN') ? '' : 'display: none'}" class="mb-3">
+            <label for="teacherId" class="form-label">Выберите преподователя</label>
+            <select class="form-select" id="teacherId" name="teacherId">
+                <option th:each="teacher : ${teachers}"
+                        th:value="${teacher.getTeacherId()}" th:text="${teacher.getName()}"
+                        th:selected="${teacher.getTeacherId()} == ${user.getId()}">
+                </option>
+            </select>
+        </div>
         <div class="mb-3">
             <label for="discipline" class="form-label">Выберите дисциплину</label>
             <select class="form-select" id="discipline" name="disciplineId" required>
