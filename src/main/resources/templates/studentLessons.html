@@ -128,7 +128,10 @@
                     typeWeek = 'Числитель'
                 }
                 lessons += `<td>${typeWeek}</td>`
-                lessons += `<td style="width: 300px"><a href="${lesson.link}"><img width="38" src="/images/video-call.png"></a></td></tr>`
+                lessons += `<td>
+                            <a href="/teacher/lesson/update/${lesson.idLesson}" class="change btn btn-warning">Изменить</a>
+                            <a href="/teacher/lesson/delete/${lesson.idLesson}" class="change btn btn-warning">Удалить</a>
+                        </td>`
             })
             document.querySelector("#lessons tbody").innerHTML = lessons
         })
