@@ -91,7 +91,7 @@ public class VerifyUserServiceImpl implements VerifyUserService {
 
     private void sendVerificationEmail(VerifyUser verifyUser) {
         String toAddress = verifyUser.getUser().getEmail();
-        String fromAddress = "jumabekovradik@gmail.com";
+        String fromAddress = "noreply.kstu.ivt@gmail.com";
         String senderName = "Your company name";
         String subject = "Пожайлуста подтвердите свою регистрацию";
         String content = "Дорогой(ая) [[lastName]] [[firstName]] [[patronymic]], <br>"
