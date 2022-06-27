@@ -36,6 +36,7 @@ public class TeacherController {
             groups = lessonService.findAllByUser(userPrincipal.getUser()).stream().map(Lesson::getGroup).collect(Collectors.toSet());
         }
         model.addAttribute("groups", groups);
+        model.addAttribute("user", userPrincipal.getUser());
         model.addAttribute("permission", Permission.ACTION_LESSONS);
         return "lessons";
     }

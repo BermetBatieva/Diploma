@@ -35,6 +35,12 @@
                             </option>
                         </select>
                     </li>
+                    <li th:if="${user.getRole().name().equals('ADMIN')}" class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/user/teachers">Учителя</a>
+                    </li>
+                    <li th:if="${user.getRole().name().equals('ADMIN')}" class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/user/students">Студенты</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item" th:text="${user.getUsername()}" style="line-height: 38px"></li>

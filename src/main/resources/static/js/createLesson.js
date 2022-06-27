@@ -115,7 +115,6 @@ function createLesson() {
 //     console.log(array)
 // }
 
-
 function renderLessons(id) {
     $.get("https://lessons-api-university.herokuapp.com/api/all-lesson-by-week-groupId/" + $("#week").val() + "/" + id, function (data) {
         let lessons = ''
@@ -127,22 +126,22 @@ function renderLessons(id) {
                 lessons += `
                     <tr>
                         <td class="bg-success" scope="row">${lesson.timeLesson}</td>                    
-                        <td class="bg-success" scope="row">${lesson.timeLesson}</td>                    
-                        <td class="bg-success" scope="row">${lesson.timeLesson}</td>                    
-                        <td class="bg-success" scope="row">${lesson.timeLesson}</td>                  
-                        <td class="bg-success" scope="row">${lesson.timeLesson}</td>                  
-                        <td class="bg-success" scope="row">${lesson.timeLesson}</td>                  
+                        <td class="bg-success" scope="row">Свободное время до обеда</td>                    
+                        <td class="bg-success" scope="row"></td>                    
+                        <td class="bg-success" scope="row"></td>                  
+                        <td class="bg-success" scope="row"></td>                  
+                        <td class="bg-success" scope="row"></td>                  
                     </tr>
                 `
             } else if (lesson.idLesson == null) {
                 lessons += `
                     <tr>
                         <td class="bg-danger" scope="row">${lesson.timeLesson}</td>                    
-                        <td class="bg-danger" scope="row">${lesson.timeLesson}</td>                    
-                        <td class="bg-danger" scope="row">${lesson.timeLesson}</td>                    
-                        <td class="bg-danger" scope="row">${lesson.timeLesson}</td>                  
-                        <td class="bg-danger" scope="row">${lesson.timeLesson}</td>                  
-                        <td class="bg-danger" scope="row">${lesson.timeLesson}</td>                  
+                        <td class="bg-danger" scope="row">Окно</td>                    
+                        <td class="bg-danger" scope="row"></td>                    
+                        <td class="bg-danger" scope="row"></td>                  
+                        <td class="bg-danger" scope="row"></td>                  
+                        <td class="bg-danger" scope="row"></td>                  
                     </tr>
                 `
             } else {

@@ -67,10 +67,10 @@ public class GroupRestController {
         int min = list.stream().min(Comparator.comparing(ListLessonGroup::getNumTimeLesson)).get().getNumTimeLesson();
         int max = list.stream().max(Comparator.comparing(ListLessonGroup::getNumTimeLesson)).get().getNumTimeLesson();
         for (int i = 1; i <= 8; i++) {
-            if (i < min && i <= 3 && min >= 3) {
-                continue;
-            }
-            if (i > max && i >= 3) {
+//            if (i <= 3) {
+//                continue;
+//            }
+            if (i > max && i >= 4) {
                 break;
             }
             int k = i;
@@ -80,7 +80,7 @@ public class GroupRestController {
                 for (int j = 0; j < list1.size(); j++) {
                     newList.add(list1.get(j));
                 }
-            } else if (!list2.isPresent() && i <= 3 && max >= 3) {
+            } else if (!list2.isPresent() && i <= 3 && min != 1 && max != 3 && i != 3 || min == max && i <= 3 || i == 1 && !list2.isPresent() || min > 3 && i <= 3) {
                 ListLessonGroup listLessonGroup = new ListLessonGroup();
                 listLessonGroup.setTimeLesson(timeLessonsService.findByNumberLesson(i).getTime());
                 listLessonGroup.setIdLesson(-1L);
