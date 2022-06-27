@@ -152,10 +152,10 @@ public class UserServiceImpl implements UserService {
 
         user.setFirstName(userDTO.getFirstName())
                 .setLastName(userDTO.getLastName())
-                .setPatronymic(userDTO.getLastName())
+                .setPatronymic(userDTO.getPatronymic())
                 .setMobilePhoneNumber(userDTO.getMobilePhoneNumber())
                 .setUsername(userDTO.getUsername())
-                .setEmail(userDTO.getLastName())
+                .setEmail(userDTO.getEmail())
                 .setFaculty(facultyRepository.getById(userDTO.getFacultyId()))
                 .setGroup(null)
                 .setRole(Role.TEACHER);

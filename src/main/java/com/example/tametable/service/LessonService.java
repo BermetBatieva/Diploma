@@ -246,7 +246,7 @@ public class LessonService {
 
         for (Lesson lesson : lessonList) {
 
-            ListLessonGroup model = new ListLessonGroup();
+            ListLessonGroup model = new ListLessonGroup(); //дто
             model.setIdLesson(lesson.getId());
             model.setLink2(lesson.getLink2());
             model.setNumTimeLesson(lesson.getTimeLesson().getNumberLesson());
