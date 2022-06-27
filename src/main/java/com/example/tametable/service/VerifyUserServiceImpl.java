@@ -49,11 +49,11 @@ public class VerifyUserServiceImpl implements VerifyUserService {
     @Override
     public void resetPassword(User user) {
         String toAddress = user.getEmail();
-        String fromAddress = "jumabekovradik@gmail.com";
+        String fromAddress = "noreply.kstu.ivt@gmail.com";
         String senderName = "Your company name";
         String subject = "Ссылка для сброса пароля";
         String content = "Дорогой(ая) [[lastName]] [[firstName]] [[patronymic]], <br>"
-                + "Пожайлуста нажмите на ссылку ниже, чтобы восстоновить пароль:<br>"
+                + "Пожайлуста, нажмите на ссылку ниже, чтобы восстановить пароль:<br>"
                 + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>";
 
         try {
@@ -109,7 +109,7 @@ public class VerifyUserServiceImpl implements VerifyUserService {
             content = content.replace("[[lastName]]", verifyUser.getUser().getLastName());
             content = content.replace("[[patronymic]]", verifyUser.getUser().getPatronymic());
 
-            String verifyURL = "http://localhost:8080/verify?id=" + verifyUser.getUser().getId() + "&code=" + verifyUser.getToken();
+            String verifyURL = "https://lessons-api-university.herokuapp.com/verify?id=" + verifyUser.getUser().getId() + "&code=" + verifyUser.getToken();
 
             content = content.replace("[[URL]]", verifyURL);
 
