@@ -123,27 +123,52 @@ function renderLessons(id) {
         let typeWeek = ''
 
         $.each(data, function (index, lesson) {
-            lessons += `
+            if (lesson.idLesson == -1) {
+                lessons += `
+                    <tr>
+                        <td class="bg-success" scope="row">${lesson.timeLesson}</td>                    
+                        <td class="bg-success" scope="row">${lesson.timeLesson}</td>                    
+                        <td class="bg-success" scope="row">${lesson.timeLesson}</td>                    
+                        <td class="bg-success" scope="row">${lesson.timeLesson}</td>                  
+                        <td class="bg-success" scope="row">${lesson.timeLesson}</td>                  
+                        <td class="bg-success" scope="row">${lesson.timeLesson}</td>                  
+                    </tr>
+                `
+            } else if (lesson.idLesson == null) {
+                lessons += `
+                    <tr>
+                        <td class="bg-danger" scope="row">${lesson.timeLesson}</td>                    
+                        <td class="bg-danger" scope="row">${lesson.timeLesson}</td>                    
+                        <td class="bg-danger" scope="row">${lesson.timeLesson}</td>                    
+                        <td class="bg-danger" scope="row">${lesson.timeLesson}</td>                  
+                        <td class="bg-danger" scope="row">${lesson.timeLesson}</td>                  
+                        <td class="bg-danger" scope="row">${lesson.timeLesson}</td>                  
+                    </tr>
+                `
+            } else {
+                lessons += `
                     <tr>
                         <td scope="row">${lesson.timeLesson}</td>
                         <td scope="row">${lesson.discipline}</td>
                         <td scope="row">${lesson.group}</td>
                         <td scope="row">${lesson.teacher}</td>
                 `
-            if (lesson.isLecture) {
-                typeLesson = 'Лекция'
-            } else {
-                typeLesson = 'Лабораторная'
+                if (lesson.isLecture) {
+                    typeLesson = 'Лекция'
+                } else {
+                    typeLesson = 'Лабораторная'
+                }
+                lessons += `<td scope="row">${typeLesson}</td>`
+                if (lesson.weekTypeZnamenatel && lesson.weekTypeChislitel) {
+                    typeWeek = 'Каждую неделю'
+                } else if (lesson.weekTypeZnamenatel) {
+                    typeWeek = 'Знаменатель'
+                } else {
+                    typeWeek = 'Числитель'
+                }
+                lessons += `<td>${typeWeek}</td></tr>`
             }
-            lessons += `<td scope="row">${typeLesson}</td>`
-            if (lesson.weekTypeZnamenatel && lesson.weekTypeChislitel) {
-                typeWeek = 'Каждую неделю'
-            } else if (lesson.weekTypeZnamenatel) {
-                typeWeek = 'Знаменатель'
-            } else {
-                typeWeek = 'Числитель'
-            }
-            lessons += `<td>${typeWeek}</td></tr>`
+
         })
         document.querySelector("#lessons tbody").innerHTML = lessons
     })

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface TimeLessonsService {
     List<TimeLesson> findExerciseTimeAll();
+
+    TimeLesson findByNumberLesson(int numberLesson);
 }

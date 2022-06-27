@@ -43,7 +43,6 @@ $("#users").on("click", function (event) {
 
     }
 })
-
 function deleteUser(id) {
     $.ajax({
         type: "DELETE",

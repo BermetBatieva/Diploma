@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TimeLessonRepo extends JpaRepository<TimeLesson, Long> {
+    TimeLesson findByNumberLesson(int numberLesson);
 }

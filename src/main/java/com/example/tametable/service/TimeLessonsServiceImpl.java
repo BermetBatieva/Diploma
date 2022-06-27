@@ -23,5 +23,10 @@ public class TimeLessonsServiceImpl implements TimeLessonsService {
         return timeLessonRepo.findAll();
     }
 
+    @Override
+    public TimeLesson findByNumberLesson(int numberLesson) {
+        return timeLessonRepo.findByNumberLesson(numberLesson);
+    }
+
 
 }
